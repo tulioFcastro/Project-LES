@@ -29,28 +29,29 @@
     </EditText>
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/hours"
-        android:layout_alignLeft="@+id/hours"
+        android:layout_above="@+id/minutes"
+        android:layout_alignLeft="@+id/textView1"
         android:text="@string/minutes"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/minutes"
+        android:layout_alignLeft="@+id/hours"
+        android:text="@string/hours"
         android:textSize="20sp" />
 
     <NumberPicker
         android:id="@+id/hours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/editText1"
-        android:layout_alignTop="@+id/minutes" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/minutes"
         android:layout_alignLeft="@+id/editText1"
-        android:text="@string/hours"
-        android:textSize="20sp" />
+        android:layout_alignTop="@+id/minutes" />
 
     <NumberPicker
         android:id="@+id/minutes"
@@ -64,17 +65,19 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/minutes"
+        android:layout_alignLeft="@+id/hours"
         android:layout_alignParentBottom="true"
-         android:text="@string/ok" />
+        android:layout_marginBottom="22dp"
+        android:text="@string/ok" />
 
     <Button
         android:id="@+id/buttonCancel"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/buttonOk"
-        android:layout_toRightOf="@+id/textView1"
-         android:text="@string/cancel" />
+        android:layout_alignBaseline="@+id/buttonOk"
+        android:layout_alignBottom="@+id/buttonOk"
+        android:layout_alignLeft="@+id/minutes"
+        android:text="@string/cancel" />
 
 </RelativeLayout>
