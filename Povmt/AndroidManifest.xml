@@ -26,6 +26,10 @@
             android:name="com.example.povmt.TIActivity"
             android:label="@string/title_activity_ti" >
         </activity>
+        <activity
+            android:name="com.example.povmt.ListTiActivity"
+            android:label="@string/title_activity_list_ti" >
+        </activity>
     </application>
 
 </manifest>

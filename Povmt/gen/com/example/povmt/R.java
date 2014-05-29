@@ -42,8 +42,9 @@ public final class R {
         public static final int textView3=0x7f080004;
     }
     public static final class layout {
-        public static final int activity_ti=0x7f030000;
-        public static final int activity_ti_main=0x7f030001;
+        public static final int activity_list_ti=0x7f030000;
+        public static final int activity_ti=0x7f030001;
+        public static final int activity_ti_main=0x7f030002;
     }
     public static final class menu {
         public static final int ti=0x7f070000;
@@ -62,6 +63,7 @@ public final class R {
         public static final int ok=0x7f050008;
         public static final int result=0x7f050006;
         public static final int sum=0x7f050004;
+        public static final int title_activity_list_ti=0x7f05000d;
         public static final int title_activity_ti=0x7f050003;
     }
     public static final class style {
