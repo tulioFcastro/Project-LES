@@ -4,14 +4,12 @@ public class Ti {
 	private String atividade;
 	private int hora;
 	private int minuto;
-	private int segundos;
 
-	public Ti(String atividade, int hora, int minuto, int segundos) {
+	public Ti(String atividade, int hora, int minuto) {
 		super();
 		this.atividade = atividade;
 		this.hora = hora;
 		this.minuto = minuto;
-		this.segundos = segundos;
 	}
 
 	public String getAtividade() {
@@ -26,10 +24,6 @@ public class Ti {
 		return minuto;
 	}
 
-	public int getSegundos() {
-		return segundos;
-	}
-
 	public void setAtividade(String novaAtividade) {
 		atividade = novaAtividade;
 	}
@@ -42,8 +36,5 @@ public class Ti {
 		minuto = novoMinuto;
 	}
 
-	public void setSegundos(int novosSegundos) {
-		segundos = novosSegundos;
-	}
 
 }
