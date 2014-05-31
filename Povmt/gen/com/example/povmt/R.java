@@ -29,22 +29,24 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int Button_AddTI=0x7f080008;
-        public static final int action_settings=0x7f08000a;
-        public static final int buttonCancel=0x7f080007;
-        public static final int buttonOk=0x7f080006;
-        public static final int editText1=0x7f080001;
-        public static final int hours=0x7f080005;
-        public static final int minutes=0x7f080003;
-        public static final int teste=0x7f080009;
-        public static final int textView1=0x7f080000;
-        public static final int textView2=0x7f080002;
-        public static final int textView3=0x7f080004;
+        public static final int Button_AddTI=0x7f080009;
+        public static final int TI_text=0x7f080004;
+        public static final int action_settings=0x7f08000b;
+        public static final int button_cancel=0x7f080002;
+        public static final int button_create=0x7f080003;
+        public static final int button_ok=0x7f080008;
+        public static final int createButton=0x7f080006;
+        public static final int hours=0x7f080001;
+        public static final int loginButton=0x7f080007;
+        public static final int name_field=0x7f080000;
+        public static final int teste=0x7f08000a;
+        public static final int user_name=0x7f080005;
     }
     public static final class layout {
-        public static final int activity_list_ti=0x7f030000;
-        public static final int activity_ti=0x7f030001;
-        public static final int activity_ti_main=0x7f030002;
+        public static final int activity_create_ti=0x7f030000;
+        public static final int activity_create_user=0x7f030001;
+        public static final int activity_login=0x7f030002;
+        public static final int activity_ti_main=0x7f030003;
     }
     public static final class menu {
         public static final int ti=0x7f070000;
@@ -63,8 +65,12 @@ public final class R {
         public static final int ok=0x7f050008;
         public static final int result=0x7f050006;
         public static final int sum=0x7f050004;
+        public static final int title_activity_create=0x7f050011;
+        public static final int title_activity_create_ti=0x7f05000f;
         public static final int title_activity_list_ti=0x7f05000d;
+        public static final int title_activity_login=0x7f050010;
         public static final int title_activity_ti=0x7f050003;
+        public static final int title_activity_time_it__up_main=0x7f05000e;
     }
     public static final class style {
         /** 

@@ -15,5 +15,9 @@
     <string name="hours">Hours</string>
     <string name="minutes">Minutes</string>
     <string name="title_activity_list_ti">ListTiActivity</string>
+    <string name="title_activity_time_it__up_main">Time_it_Up_main</string>
+    <string name="title_activity_create_ti">CreateTI</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_create">CreateActivity</string>
 
 </resources>

@@ -2,29 +2,16 @@ package com.br.les.timeitup;
 
 public class User {
 	
-	private Long id;
-	private Schedule schedule;
+	private int id;
 	String name;
 	String email;
 	
-	public User(String name) {
-		this.name = name;
-	}
-
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Schedule getSchedule() {
-		return schedule;
-	}
-
-	public void setSchedule(Schedule schedule) {
-		this.schedule = schedule;
 	}
 
 	public String getName() {
@@ -43,4 +30,8 @@ public class User {
 		this.email = email;
 	}
 	
+	@Override
+	public String toString() {
+		return name + ":" + email;
+	}
 }

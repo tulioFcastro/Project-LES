@@ -5,13 +5,13 @@ import java.util.List;
 public class Week {
 	
 	private String name;
-	List<Activity> activities;
+	List<ActivityTI> activities;
 	
 	public Week(String name) {
 		this.name = name;
 	}
 	
-	public void addActivities(Activity activity){
+	public void addActivities(ActivityTI activity){
 		activities.add(activity);
 	}
 
@@ -23,16 +23,16 @@ public class Week {
 		this.name = name;
 	}
 
-	public List<Activity> getActivities() {
+	public List<ActivityTI> getActivities() {
 		return activities;
 	}
 
-	public void setActivities(List<Activity> activities) {
+	public void setActivities(List<ActivityTI> activities) {
 		this.activities = activities;
 	}
 	
 	public String calculateWeekTime(){
-		for (Activity ac : activities) {
+		for (ActivityTI ac : activities) {
 			//ToDo
 		}
 		return "";

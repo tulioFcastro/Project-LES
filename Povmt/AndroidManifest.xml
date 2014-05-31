@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.povmt.MainActivity"
+            android:name="com.br.les.activities.Login"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,12 +23,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.povmt.TIActivity"
+            android:name="com.br.les.activities.TIActivity"
             android:label="@string/title_activity_ti" >
         </activity>
         <activity
-            android:name="com.example.povmt.ListTiActivity"
+            android:name="com.br.les.activities.ListTiActivity"
             android:label="@string/title_activity_list_ti" >
+        </activity>
+        <activity
+            android:name="com.br.les.activities.Time_it_Up_main"
+            android:label="@string/title_activity_time_it__up_main" >
+        </activity>
+        <activity
+            android:name="com.br.les.activities.CreateTI"
+            android:label="@string/title_activity_create_ti" >
+        </activity>
+        <activity
+            android:name="com.br.les.activities.CreateUser"
+            android:label="@string/title_activity_create" >
         </activity>
     </application>
 
