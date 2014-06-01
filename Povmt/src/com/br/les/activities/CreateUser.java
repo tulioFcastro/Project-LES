@@ -11,8 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
 import com.br.les.database.UserOperations;
+import com.br.les.povmt.R;
 import com.br.les.timeitup.User;
-import com.example.povmt.R;
 
 public class CreateUser extends ListActivity {
 

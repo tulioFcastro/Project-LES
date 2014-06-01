@@ -1,7 +1,7 @@
 package com.br.les.activities;
 
+import com.br.les.povmt.R;
 import com.br.les.timeitup.ActivityTI;
-import com.example.povmt.R;
 
 import android.app.Activity;
 import android.os.Bundle;

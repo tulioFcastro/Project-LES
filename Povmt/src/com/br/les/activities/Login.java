@@ -1,6 +1,6 @@
 package com.br.les.activities;
 
-import com.example.povmt.R;
+import com.br.les.povmt.R;
 
 import android.app.Activity;
 import android.content.Intent;

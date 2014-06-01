@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.povmt"
+    package="com.br.les.povmt"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -24,6 +24,11 @@
         </activity>
         <activity
             android:name="com.br.les.activities.TIActivity"
+            android:label="@string/title_activity_ti" >
+        </activity>
+        
+         <activity
+            android:name="com.br.les.activities.MainActivity"
             android:label="@string/title_activity_ti" >
         </activity>
         <activity
