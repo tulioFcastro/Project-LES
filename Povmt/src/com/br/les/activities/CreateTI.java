@@ -9,19 +9,26 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import com.br.les.database.UserOperations;
 import com.br.les.povmt.R;
 import com.br.les.timeitup.ActivityTI;
+import com.br.les.timeitup.User;
 
 public class CreateTI extends Activity {
 
-    ActivityTI my_activity_ti;
-    NumberPicker hours;
+    private ActivityTI my_activity_ti;
+    private NumberPicker hours;
     private int time;
+    private User usuario;
+    private UserOperations userDBOperations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ti);
+
+        userDBOperations = new UserOperations(this);
+        usuario = userDBOperations.getAllUser().get(0);
         hours = (NumberPicker) findViewById(R.id.hours);
 
         hours.setMaxValue(24);
@@ -49,6 +56,13 @@ public class CreateTI extends Activity {
                 toast.show();
 
                 my_activity_ti = new ActivityTI(name.getText().toString(), time);
+
+                if (usuario.isActualWeek()) {
+                    usuario.getWeekAtual().addTI(my_activity_ti);
+                } else {
+                    usuario.createActualWeek();
+                    usuario.getWeekAtual().addTI(my_activity_ti);
+                }
 
             }
         });

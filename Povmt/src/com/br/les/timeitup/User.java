@@ -1,23 +1,23 @@
 
 package com.br.les.timeitup;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 public class User {
 
     public User() {
-        this.weeks = new ArrayList<Week>();
+        weeks = new Week[3];
     }
 
     public User(int id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.weeks = new ArrayList<Week>();
+
+        weeks = new Week[3];
     }
 
-    private List<Week> weeks;
+    private final Week[] weeks;
     private int id;
     private String name;
     private String email;
@@ -51,7 +51,49 @@ public class User {
         return name + ":" + email;
     }
 
-    public List<Week> getWeeks() {
+    public Week[] getWeeks() {
         return weeks;
+    }
+
+    public Week getWeekAtual() {
+        return weeks[0];
+    }
+
+    private boolean actualWeekIsEmpty() {
+
+        if (weeks[0] != null) {
+            return true;
+        }
+        return false;
+
+    }
+
+    public void createActualWeek() {
+
+        int weekNum = Calendar.WEEK_OF_YEAR;
+        Week week = new Week(weekNum);
+        if (actualWeekIsEmpty()) {
+            weeks[0] = week;
+        } else {
+            movingWeek();
+            weeks[0] = week;
+        }
+
+    }
+
+    private void movingWeek() {
+        weeks[2] = weeks[1];
+        weeks[1] = null;
+        weeks[1] = weeks[0];
+        weeks[0] = null;
+    }
+
+    public boolean isActualWeek() {
+        int weekNum = Calendar.WEEK_OF_YEAR;
+        if (weekNum == weeks[0].getNum()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
