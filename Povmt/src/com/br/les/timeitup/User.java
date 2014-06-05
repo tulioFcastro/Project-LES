@@ -10,13 +10,13 @@ public class User {
 
 	public User() {
 		weeks = new Week[3];
+		initializeWeeks();
 	}
 
 	public User(int id, String name, String email) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
-
 		initializeWeeks();
 	}
 

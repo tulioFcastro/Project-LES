@@ -11,8 +11,6 @@ import android.widget.Button;
 
 public class MainActivity extends Activity {
 
-	private static final String[] CONTENT = new String[] { "Recent", "Artists",
-			"Albums", "Songs", "Playlists", "Genres" };
 	private static String user = "login";
 
 	@Override
