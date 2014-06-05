@@ -26,8 +26,7 @@
             android:name="com.br.les.activities.TIActivity"
             android:label="@string/title_activity_ti" >
         </activity>
-        
-         <activity
+        <activity
             android:name="com.br.les.activities.MainActivity"
             android:label="@string/title_activity_ti" >
         </activity>
@@ -46,6 +45,10 @@
         <activity
             android:name="com.br.les.activities.CreateUser"
             android:label="@string/title_activity_create" >
+        </activity>
+        <activity
+            android:name="com.br.les.activities.WeeklyMonitoring"
+            android:label="@string/title_activity_weekly_monitoring" >
         </activity>
     </application>
 

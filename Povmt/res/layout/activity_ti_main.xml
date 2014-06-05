@@ -7,6 +7,13 @@
     tools:context="com.ufcg.les.MainActivity" >
 
     <Button
+        android:id="@+id/Button_WeeklyMonitoring"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Weekly Monitoring" 
+        android:onClick="weeklyMonitoring"/>
+
+    <Button
         android:id="@+id/Button_AddTI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

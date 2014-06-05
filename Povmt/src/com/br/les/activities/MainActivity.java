@@ -28,6 +28,12 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
+	
+	
+	public void weeklyMonitoring(View v){
+		Intent i = new Intent(MainActivity.this, WeeklyMonitoring.class);
+		startActivity(i);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
