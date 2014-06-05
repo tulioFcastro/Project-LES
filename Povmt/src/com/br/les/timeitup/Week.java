@@ -1,112 +1,53 @@
-
 package com.br.les.timeitup;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Week {
 
-    private final int num;
-    private final Map<String, ArrayList<ActivityTI>> mapDiaTi;
-    private List<String> dias;
+	private int num;
+	private List<ActivityTI> mapDiaTi;
 
-    public Week(int num) {
-        this.num = num;
-        dias = new ArrayList<String>();
-        createDias();
+	/*
+	 * Construtor da classe
+	 */
+	public Week() {
+		this.num = Calendar.WEEK_OF_YEAR;
+		this.mapDiaTi = new ArrayList<ActivityTI>();
+	}
 
-        mapDiaTi = new HashMap<String, ArrayList<ActivityTI>>();
+	/*
+	 * Retorna o número da semana no ano atual do sistema.
+	 */
+	public int getNum() {
+		return num;
+	}
 
-        for (String dia : dias) {
-            mapDiaTi.put(dia, new ArrayList<ActivityTI>());
-        }
-    }
+	/*
+	 * Adiciona TI à semana ou soma sua quantidade de horas se já tiver sido
+	 * adicionada anteriormente
+	 * 
+	 * @author Grupo 3 - LES Adiciona TI na semana
+	 * 
+	 * @param TI a ser adicionado ou somada a quantidade de horas
+	 */
+	public void addTI(ActivityTI actTI) {
+		if (this.mapDiaTi.contains(actTI)) {
+			int index = this.mapDiaTi.indexOf(actTI);
+			this.mapDiaTi.get(index).setTime(actTI.getTime());
+		} else {
+			this.mapDiaTi.add(actTI);
+		}
+	}
 
-    private void createDias() {
-        dias = new ArrayList<String>();
-        dias.add("Domingo");
-        dias.add("Segunda");
-        dias.add("TerÃ§a");
-        dias.add("Quarta");
-        dias.add("Quinta");
-        dias.add("Sexta");
-
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public String calculateTimeOfTiOnWeek(String name) {
-        int saida = 0;
-        for (String dia : dias) {
-            List<ActivityTI> list = mapDiaTi.get(dia);
-            for (ActivityTI activityTI : list) {
-                saida += activityTI.getTime();
-            }
-        }
-        return String.valueOf(saida);
-    }
-
-    public void addTI(ActivityTI my_activity_ti) {
-        String dia = retornarDiaSemana(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
-        mapDiaTi.get(dia).add(my_activity_ti);
-
-    }
-
-    // retorna o dia da semana dada uma data
-    public String retornarDiaSemana(int ano, int mes, int dia)
-    {
-        Calendar calendario = new GregorianCalendar(ano, mes - 1, dia);
-        int diaSemana = calendario.get(Calendar.DAY_OF_WEEK);
-
-        return pesquisarDiaSemana(diaSemana);
-    }
-
-    // faz a pesquisa, dado um inteiro de 1 a 7
-    private String pesquisarDiaSemana(int _diaSemana)
-    {
-        String diaSemana = null;
-
-        switch (_diaSemana)
-        {
-
-            case 1: {
-                diaSemana = "Domingo";
-                break;
-            }
-            case 2: {
-                diaSemana = "Segunda";
-                break;
-            }
-            case 3: {
-                diaSemana = "TerÃ§a";
-                break;
-            }
-            case 4: {
-                diaSemana = "Quarta";
-                break;
-            }
-            case 5: {
-                diaSemana = "Quinta";
-                break;
-            }
-            case 6: {
-                diaSemana = "Sexta";
-                break;
-            }
-            case 7: {
-                diaSemana = "SÃ¡bado";
-                break;
-            }
-
-        }
-        return diaSemana;
-
-    }
+	/*
+	 * Decrementa o valor de num.
+	 * 
+	 * @param num valor a ser decrementado
+	 */
+	public void decrementNum(int num) {
+		this.num -= num;
+	}
 
 }

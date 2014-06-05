@@ -1,99 +1,108 @@
-
 package com.br.les.timeitup;
 
 import java.util.Calendar;
 
 public class User {
+	private Week[] weeks;
+	private int id;
+	private String name;
+	private String email;
 
-    public User() {
-        weeks = new Week[3];
-    }
+	public User() {
+		weeks = new Week[3];
+	}
 
-    public User(int id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
+	public User(int id, String name, String email) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
 
-        weeks = new Week[3];
-    }
+		initializeWeeks();
+	}
 
-    private final Week[] weeks;
-    private int id;
-    private String name;
-    private String email;
+	/*
+	 * Inicializando as semanas
+	 */
+	private void initializeWeeks() {
+		this.weeks = new Week[3];
+		for (int i = 0; i < this.weeks.length; i++) {
+			this.weeks[i] = new Week();
+		}
+		this.weeks[0].decrementNum(2);
+		this.weeks[1].decrementNum(1);
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	/*
+	 * Retorna o name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	/*
+	 * Muda o valor do name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	/*
+	 * Retorna o email
+	 */
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	/*
+	 * Muda o valor do email
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    @Override
-    public String toString() {
-        return name + ":" + email;
-    }
+	@Override
+	public String toString() {
+		return name + ":" + email;
+	}
 
-    public Week[] getWeeks() {
-        return weeks;
-    }
+	/*
+	 * Retorna todas as semanas.
+	 */
+	public Week[] getWeeks() {
+		return weeks;
+	}
 
-    public Week getWeekAtual() {
-        return weeks[0];
-    }
+	/*
+	 * Retorna a semana atual, que será a última posição do array
+	 */
+	public Week getWeekAtual() {
+		return weeks[2];
+	}
 
-    private boolean actualWeekIsEmpty() {
+	/*
+	 * Checa se é a semana atual, se não for inicializará uma nova.
+	 */
+	public void isActualWeek() {
+		if (this.weeks[2].getNum() != Calendar.WEEK_OF_YEAR) {
+			Week temp[] = new Week[3];
+			System.arraycopy(this.weeks, 0, temp, 0, 3);
 
-        if (weeks[0] != null) {
-            return true;
-        }
-        return false;
+			this.weeks[0] = temp[1];
+			this.weeks[0].decrementNum(1);
 
-    }
+			this.weeks[1] = temp[2];
+			this.weeks[1].decrementNum(1);
 
-    public void createActualWeek() {
+			this.weeks[2] = new Week();
+		}
+	}
 
-        int weekNum = Calendar.WEEK_OF_YEAR;
-        Week week = new Week(weekNum);
-        if (actualWeekIsEmpty()) {
-            weeks[0] = week;
-        } else {
-            movingWeek();
-            weeks[0] = week;
-        }
-
-    }
-
-    private void movingWeek() {
-        weeks[2] = weeks[1];
-        weeks[1] = null;
-        weeks[1] = weeks[0];
-        weeks[0] = null;
-    }
-
-    public boolean isActualWeek() {
-        int weekNum = Calendar.WEEK_OF_YEAR;
-        if (weekNum == weeks[0].getNum()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

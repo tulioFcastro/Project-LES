@@ -11,8 +11,9 @@ import android.widget.Button;
 
 public class MainActivity extends Activity {
 
+	private static final String[] CONTENT = new String[] { "Recent", "Artists",
+			"Albums", "Songs", "Playlists", "Genres" };
 	private static String user = "login";
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +29,8 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
-	
-	
-	public void weeklyMonitoring(View v){
+
+	public void weeklyMonitoring(View v) {
 		Intent i = new Intent(MainActivity.this, WeeklyMonitoring.class);
 		startActivity(i);
 	}
