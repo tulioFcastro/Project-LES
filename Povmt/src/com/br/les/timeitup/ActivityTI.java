@@ -1,6 +1,8 @@
 package com.br.les.timeitup;
 
-public class ActivityTI {
+import java.util.Comparator;
+
+public class ActivityTI implements Comparable<ActivityTI>{
 
 	private String name;
 	private int time;
@@ -23,7 +25,7 @@ public class ActivityTI {
 		this.name = name;
 	}
 
-	public void setTime(int time) {
+	public void addTime(int time) {
 		this.time += time;
 	}
 
@@ -39,6 +41,16 @@ public class ActivityTI {
 	 */
 	public void setPriority(int priority) {
 		this.priority = priority;
+	}
+
+	@Override
+	public int compareTo(ActivityTI actTi) {
+		if(this.getTime()>actTi.getTime()){
+			return 1;
+		}else if (this.getTime()< actTi.getTime()){
+			return -1;
+		}
+		return 0;
 	}
 
 }

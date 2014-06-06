@@ -2,19 +2,20 @@ package com.br.les.timeitup;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public class Week {
 
 	private int num;
-	private List<ActivityTI> mapDiaTi;
+	private List<ActivityTI> TiList;
 
 	/*
 	 * Construtor da classe
 	 */
 	public Week() {
 		this.num = Calendar.WEEK_OF_YEAR;
-		this.mapDiaTi = new ArrayList<ActivityTI>();
+		this.TiList = new ArrayList<ActivityTI>();
 	}
 
 	/*
@@ -33,11 +34,11 @@ public class Week {
 	 * @param TI a ser adicionado ou somada a quantidade de horas
 	 */
 	public void addTI(ActivityTI actTI) {
-		if (this.mapDiaTi.contains(actTI)) {
-			int index = this.mapDiaTi.indexOf(actTI);
-			this.mapDiaTi.get(index).setTime(actTI.getTime());
+		if (this.TiList.contains(actTI)) {
+			int index = this.TiList.indexOf(actTI);
+			this.TiList.get(index).addTime(actTI.getTime());
 		} else {
-			this.mapDiaTi.add(actTI);
+			this.TiList.add(actTI);
 		}
 	}
 
@@ -49,5 +50,25 @@ public class Week {
 	public void decrementNum(int num) {
 		this.num -= num;
 	}
+	
+	
+	//Retorna o tempo da ti SOMADO
+	public String timeOfTI(ActivityTI actTI){
+		int saida = 0;
+		if (this.TiList.contains(actTI)) {
+			int index = this.TiList.indexOf(actTI);
+			saida = this.TiList.get(index).getTime();
+		}
+		return String.valueOf(saida);	
+	}
+	
+	//Retorna as tis ordenadas
+	public List<ActivityTI> tiRank(){
+		
+		Collections.sort(TiList);
+		return TiList;
+		
+	}
+	
 
 }

@@ -104,5 +104,8 @@ public class User {
 			this.weeks[2] = new Week();
 		}
 	}
+	
+	
+	
 
 }
