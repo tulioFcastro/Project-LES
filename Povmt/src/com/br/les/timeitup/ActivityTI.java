@@ -8,6 +8,11 @@ public class ActivityTI implements Comparable<ActivityTI>{
 	private int time;
 	private int priority;
 
+	/** Creator 
+	 * 
+	 * @param name
+	 * @param time
+	 */
 	public ActivityTI(String name, int time) {
 		this.name = name;
 		this.time = time;

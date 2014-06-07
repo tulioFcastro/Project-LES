@@ -7,31 +7,33 @@ import java.util.List;
 
 public class Week {
 
-	private int num;
+	private int weekOftheyear;
 	private List<ActivityTI> TiList;
 
 	/*
-	 * Construtor da classe
+	 * A new Week constructor
 	 */
 	public Week() {
-		this.num = Calendar.WEEK_OF_YEAR;
+		this.weekOftheyear = Calendar.WEEK_OF_YEAR;
 		this.TiList = new ArrayList<ActivityTI>();
 	}
 
-	/*
-	 * Retorna o número da semana no ano atual do sistema.
+	/** Method that returns the week of the year
+	 * 
+	 * @return
+	 * 		- The number that represents the registered week of the year.
 	 */
-	public int getNum() {
-		return num;
+	public int getWeekOfYear() {
+		return weekOftheyear;
 	}
 
-	/*
-	 * Adiciona TI à semana ou soma sua quantidade de horas se já tiver sido
-	 * adicionada anteriormente
+	/** 
+	 * Add a new TI to the week or sums the already existing invested time with
+	 * the new one. 
 	 * 
-	 * @author Grupo 3 - LES Adiciona TI na semana
 	 * 
-	 * @param TI a ser adicionado ou somada a quantidade de horas
+	 * @param actTI
+	 * 		- TI to be registered or to have its time updated 
 	 */
 	public void addTI(ActivityTI actTI) {
 		if (this.TiList.contains(actTI)) {
@@ -42,17 +44,23 @@ public class Week {
 		}
 	}
 
-	/*
-	 * Decrementa o valor de num.
+	/** Decrements the current week by a specified number.
 	 * 
-	 * @param num valor a ser decrementado
+	 * @param decrement
+	 * 		-	A int that will be subtracted from weekOfTheYear
 	 */
-	public void decrementNum(int num) {
-		this.num -= num;
+	public void decrementWeekOfTheYear(int decrement) {
+		this.weekOftheyear -= decrement;
 	}
 	
-	
-	//Retorna o tempo da ti SOMADO
+	/** Method to return the invested time of an specific ActivityTI
+	 *  of this week.
+	 * 
+	 * @param actTI
+	 * 		- The ActivityTI to be searched
+	 * @return
+	 * 		- The total invested time on this Activity 
+	 */
 	public String timeOfTI(ActivityTI actTI){
 		int saida = 0;
 		if (this.TiList.contains(actTI)) {
@@ -62,9 +70,13 @@ public class Week {
 		return String.valueOf(saida);	
 	}
 	
-	//Retorna as tis ordenadas
+	
+	/** Creates a rank based on the invested time of each TI of this week
+	 * 
+	 * @return
+	 * 		A sorted List of ActivityTI based on the invested time of each one
+	 */
 	public List<ActivityTI> tiRank(){
-		
 		Collections.sort(TiList);
 		return TiList;
 		

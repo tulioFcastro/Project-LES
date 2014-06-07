@@ -73,10 +73,10 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		/*  if (mViewPager != null) {
+ 		 /*  if (mViewPager != null) {
 	            mViewPager.setCurrentItem(tab.getPosition());
 	        }
-*/		
+		 */		
 	}
 
 	@Override

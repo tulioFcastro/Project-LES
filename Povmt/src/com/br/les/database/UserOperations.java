@@ -76,7 +76,6 @@ public class UserOperations {
 
 	private User parseUser(Cursor cursor) {
 		User user = new User();
-		user.setId(cursor.getInt(0));
 		user.setName(cursor.getString(1));
 		user.setEmail(cursor.getString(2));
 
