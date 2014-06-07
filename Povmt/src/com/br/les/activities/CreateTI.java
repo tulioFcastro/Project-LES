@@ -58,6 +58,10 @@ public class CreateTI extends Activity {
 				my_activity_ti = new ActivityTI(name.getText().toString(), time);
 				usuario.isActualWeek();
 				usuario.getWeekAtual().addTI(my_activity_ti);
+				
+				//TODO Creatte JSON and send to server
+				
+				finish();
 
 			}
 		});

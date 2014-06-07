@@ -18,6 +18,15 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ti_main);
 
+		Button verSemanas = (Button) findViewById(R.id.Button_WeeklyMonitoring);
+		verSemanas.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this, WeeklyMonitoring.class);
+				startActivity(i);
+			}
+		});
+		
 		Button adicionarTI = (Button) findViewById(R.id.Button_AddTI);
 		adicionarTI.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -28,10 +37,7 @@ public class MainActivity extends Activity {
 		});
 	}
 
-	public void weeklyMonitoring(View v) {
-		Intent i = new Intent(MainActivity.this, WeeklyMonitoring.class);
-		startActivity(i);
-	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
