@@ -15,16 +15,20 @@ import com.br.les.timeitup.User;
 
 public class MainActivity extends Activity {
 	
-	private UserOperations userDBOperations;
+	UserOperations userDBOperations;
+	private User usuarioAtual;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ti_main);
 		
 		userDBOperations = new UserOperations(this);
+		userDBOperations.open();
+		List<User> usuarios = userDBOperations.getAllUser();
 		
-		User usuarioAtual = new User();
-//		usuarioAtual = findUser("raif@ehgay.com");
+		for (User user : usuarios) {
+			if(user.getEmail().equals("i@i.com")) usuarioAtual = user;
+		}
 		
 
 		Button verSemanas = (Button) findViewById(R.id.Button_WeeklyMonitoring);
@@ -45,19 +49,6 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
-
-
-
-	private User findUser(String string) {
-		User usuario = null;
-		List<User> usuarios = userDBOperations.getAllUser();
-		
-		for (User user : usuarios) {
-			if(user.getEmail()==string) usuario = user;
-		}
-		return usuario;
-	}
-
 
 
 	@Override

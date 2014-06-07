@@ -13,7 +13,6 @@ import android.widget.EditText;
 import com.br.les.database.UserOperations;
 import com.br.les.povmt.R;
 import com.br.les.timeitup.User;
-import com.google.gson.Gson;
 
 public class CreateUser extends ListActivity {
 
@@ -41,9 +40,10 @@ public class CreateUser extends ListActivity {
         EditText name = (EditText) findViewById(R.id.textName);
         EditText email = (EditText) findViewById(R.id.textEmail);
         User user = new User(name.getText().toString(), email.getText().toString());
-        Gson gson = new Gson();
-        String user_json = gson.toJson(user);
-        userDBOperations.addUser(user_json, user.getEmail());
+//        Gson gson = new Gson();
+//        String user_json = gson.toJson(user);
+//        System.out.println("CREATE =="+user_json);
+        userDBOperations.addUser(user, user.getEmail());
 //        User user = userDBOperations.addUser(name.getText().toString(), email
 //                .getText().toString());
 
