@@ -66,6 +66,7 @@ public class UserOperations {
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
+			System.out.println("########->entrou");
 			User user = parseUser(cursor);
 			users.add(user);
 			cursor.moveToNext();
@@ -78,6 +79,7 @@ public class UserOperations {
 	private User parseUser(Cursor cursor) {
 
 		String user_json = cursor.getString(1);
+		System.out.println("############# user_json====== "+cursor.getString(1));
 		Gson gson = new Gson();
 		User user  = gson.fromJson(user_json, User.class);
 //		User user = new User();

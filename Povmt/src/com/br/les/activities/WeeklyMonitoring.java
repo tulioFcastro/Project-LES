@@ -14,7 +14,7 @@ import com.br.les.povmt.R;
 import com.br.les.report.TabsPagerAdapter;
 
 public class WeeklyMonitoring extends FragmentActivity implements TabListener {
-
+	
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;

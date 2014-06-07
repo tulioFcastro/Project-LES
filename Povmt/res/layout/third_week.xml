@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-     
-    <TextView android:layout_width="fill_parent"
+
+    <ListView
+        android:id="@+id/listViewWeek3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Design Movies Screen"
-        android:textSize="20dp"
-        android:layout_centerInParent="true"/>
-     
+        android:layout_centerHorizontal="true" >
+
+    </ListView>
  
 </RelativeLayout>

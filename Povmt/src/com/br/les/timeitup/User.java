@@ -7,6 +7,15 @@ public class User {
 	private int id;
 	private String name;
 	private String email;
+	
+	private static User instance = null;
+	
+	public static User getInstance() {
+	      if(instance == null) {
+	         instance = new User();
+	      }
+	      return instance;
+	   }
 
 	/**
 	 * Default Creator of a new User
@@ -15,19 +24,15 @@ public class User {
 		weeks = new Week[3];
 		initializeWeeks();
 	}
-
-
+	
 	/** Creator for a new user, with its Id, Name and Email
 	 * 
-	 * @param id
-	 * 		- Unique Id for this User
 	 * @param name
 	 * 		- Name of the new User
 	 * @param email
 	 * 		- The email for this User, it has to be unique
 	 */
-	public User(int id, String name, String email) {
-		this.id = id;
+	public User( String name, String email) {
 
 		this.name = name;
 		this.email = email;

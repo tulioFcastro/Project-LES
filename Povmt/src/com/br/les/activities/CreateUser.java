@@ -26,7 +26,6 @@ public class CreateUser extends ListActivity {
 
         userDBOperations = new UserOperations(this);
         userDBOperations.open();
-
         List<User> values = userDBOperations.getAllUser();
 
         ArrayAdapter<User> adapter = new ArrayAdapter<User>(this,

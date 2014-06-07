@@ -1,6 +1,6 @@
 package com.br.les.activities;
 
-import com.br.les.povmt.R;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,14 +9,23 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
+import com.br.les.database.UserOperations;
+import com.br.les.povmt.R;
+import com.br.les.timeitup.User;
+
 public class MainActivity extends Activity {
-
-	private static String user = "login";
-
+	
+	private UserOperations userDBOperations;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ti_main);
+		
+		userDBOperations = new UserOperations(this);
+		
+		User usuarioAtual = new User();
+//		usuarioAtual = findUser("raif@ehgay.com");
+		
 
 		Button verSemanas = (Button) findViewById(R.id.Button_WeeklyMonitoring);
 		verSemanas.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +44,18 @@ public class MainActivity extends Activity {
 				startActivity(i);
 			}
 		});
+	}
+
+
+
+	private User findUser(String string) {
+		User usuario = null;
+		List<User> usuarios = userDBOperations.getAllUser();
+		
+		for (User user : usuarios) {
+			if(user.getEmail()==string) usuario = user;
+		}
+		return usuario;
 	}
 
 
