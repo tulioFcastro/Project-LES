@@ -1,5 +1,8 @@
 package com.br.les.database;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,9 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.br.les.timeitup.User;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.Gson;
 
 public class UserOperations {
 
@@ -31,10 +32,10 @@ public class UserOperations {
 		dbWrapper.close();
 	}
 
-	public User addUser(String name, String email) {
+	public void addUser(String user_json, String email) {
 		ContentValues values = new ContentValues();
 
-		values.put(DataBaseWrapper.USER_NAME, name);
+		values.put(DataBaseWrapper.USER_NAME, user_json);
 		values.put(DataBaseWrapper.USER_EMAIL, email);
 
 		long userID = db.insert(DataBaseWrapper.TABLE_USER, null, values);
@@ -45,10 +46,10 @@ public class UserOperations {
 
 		cursor.moveToFirst();
 
-		User newUser = parseUser(cursor);
-		cursor.close();
-
-		return newUser;
+//		User newUser = parseUser(cursor);
+//		cursor.close();
+//
+//		return newUser;
 	}
 
 	public void deleteUser(User user) {
@@ -75,10 +76,13 @@ public class UserOperations {
 	}
 
 	private User parseUser(Cursor cursor) {
-		User user = new User();
-		user.setId(cursor.getInt(0));
-		user.setName(cursor.getString(1));
-		user.setEmail(cursor.getString(2));
+		String user_json = cursor.getString(1);
+		Gson gson = new Gson();
+		User user  = gson.fromJson(user_json, User.class);
+//		User user = new User();
+//		user.setId(cursor.getInt(0));
+//		user.setName(cursor.getString(1));
+//		user.setEmail(cursor.getString(2));
 
 		return user;
 	}
