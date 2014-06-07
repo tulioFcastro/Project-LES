@@ -30,7 +30,7 @@ public class CreateTI extends Activity {
 
 		// usuario = userDBOperations.getAllUser().get(0);
 		// MUDAR AQUI, UTILIZEI SÓ PARA TESTAR!
-		this.usuario = new User(10, "TESTE", "TESTE@email.com");
+		this.usuario = new User( "TESTE", "TESTE@email.com");
 
 		hours = (NumberPicker) findViewById(R.id.hours);
 

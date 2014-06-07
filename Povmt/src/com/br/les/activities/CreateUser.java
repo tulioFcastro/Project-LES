@@ -1,6 +1,8 @@
 
 package com.br.les.activities;
 
+import java.util.List;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +13,7 @@ import android.widget.EditText;
 import com.br.les.database.UserOperations;
 import com.br.les.povmt.R;
 import com.br.les.timeitup.User;
-
-import java.util.List;
+import com.google.gson.Gson;
 
 public class CreateUser extends ListActivity {
 
@@ -40,8 +41,12 @@ public class CreateUser extends ListActivity {
 
         EditText name = (EditText) findViewById(R.id.textName);
         EditText email = (EditText) findViewById(R.id.textEmail);
-        User user = userDBOperations.addUser(name.getText().toString(), email
-                .getText().toString());
+        User user = new User(name.getText().toString(), email.getText().toString());
+        Gson gson = new Gson();
+        String user_json = gson.toJson(user);
+        userDBOperations.addUser(user_json, user.getEmail());
+//        User user = userDBOperations.addUser(name.getText().toString(), email
+//                .getText().toString());
 
         adapter.add(user);
 

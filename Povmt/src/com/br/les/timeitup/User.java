@@ -16,6 +16,7 @@ public class User {
 		initializeWeeks();
 	}
 
+
 	/** Creator for a new user, with its Id, Name and Email
 	 * 
 	 * @param id
@@ -27,6 +28,7 @@ public class User {
 	 */
 	public User(int id, String name, String email) {
 		this.id = id;
+
 		this.name = name;
 		this.email = email;
 		initializeWeeks();
