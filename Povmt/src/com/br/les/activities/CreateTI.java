@@ -1,5 +1,7 @@
 package com.br.les.activities;
 
+import java.util.Arrays;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -56,6 +58,11 @@ public class CreateTI extends Activity {
 				my_activity_ti = new ActivityTI(name.getText().toString(), time);
 				usuario.isActualWeek();
 				usuario.getWeekAtual().addTI(my_activity_ti);
+				userDBOperations.open();
+				userDBOperations.updateUser(usuario);
+				userDBOperations.close();
+				
+				System.out.println("#########   -> "+usuario.getWeekAtual().toString()); // pra ver q ta ficando no db
 				
 				//TODO Creatte JSON and send to server
 				

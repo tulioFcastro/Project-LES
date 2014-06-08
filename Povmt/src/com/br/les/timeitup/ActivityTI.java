@@ -57,5 +57,10 @@ public class ActivityTI implements Comparable<ActivityTI>{
 		}
 		return 0;
 	}
+	
+	@Override
+	public String toString() {
+		return "Name: "+ getName()+", tempo: "+getTime();
+	}
 
 }

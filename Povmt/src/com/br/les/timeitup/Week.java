@@ -87,5 +87,10 @@ public class Week {
 		
 	}
 	
+	@Override
+	public String toString() {
+		return TiList.toString();
+	}
+	
 
 }
