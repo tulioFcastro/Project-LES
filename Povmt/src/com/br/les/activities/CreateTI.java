@@ -27,11 +27,8 @@ public class CreateTI extends Activity {
 		setContentView(R.layout.activity_create_ti);
 
 		userDBOperations = new UserOperations(this);
-
-		// usuario = userDBOperations.getAllUser().get(0);
-		// MUDAR AQUI, UTILIZEI SÓ PARA TESTAR!
+		
 		usuario = User.getInstance();
-
 
 		hours = (NumberPicker) findViewById(R.id.hours);
 

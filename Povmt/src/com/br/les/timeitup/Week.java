@@ -76,9 +76,14 @@ public class Week {
 	 * @return
 	 * 		A sorted List of ActivityTI based on the invested time of each one
 	 */
-	public List<ActivityTI> tiRank(){
+	public String[] tiRank(){
+		
+		String[] saida = new String[TiList.size()];
 		Collections.sort(TiList);
-		return TiList;
+		for (int i = 0; i < saida.length; i++) {
+			saida[i] = TiList.toString();
+		}
+		return saida;
 		
 	}
 	

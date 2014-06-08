@@ -17,19 +17,24 @@ public class MainActivity extends Activity {
 	
 	UserOperations userDBOperations;
 	private User usuarioAtual;
+	private String jogador;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ti_main);
 		
-		userDBOperations = new UserOperations(this);
-		userDBOperations.open();
-		List<User> usuarios = userDBOperations.getAllUser();
+		Bundle bunble=getIntent().getExtras();	
+        if(bunble!=null){
+            //Getting the value stored in the name "NAME"
+            jogador = bunble.getString("NameUser");
+        }
 		
-		for (User user : usuarios) {
-			if(user.getEmail().equals("i@i.com")) usuarioAtual = user;
-		}
 		
+		//Aqui eu pego o usuário cm o login passado na tela anterior
+		//ou o email fornecido pelo google
+		//e aqui é criado o singleton para a aplicação
+		usuarioAtual = User.getInstance();
+		usuarioAtual = getUser(jogador);
 
 		Button verSemanas = (Button) findViewById(R.id.Button_WeeklyMonitoring);
 		verSemanas.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +53,19 @@ public class MainActivity extends Activity {
 				startActivity(i);
 			}
 		});
+	}
+
+
+	private User getUser(String email) {
+		User usuarioAchado = null;
+		userDBOperations = new UserOperations(this);
+		userDBOperations.open();
+		List<User> usuarios = userDBOperations.getAllUser();
+		
+		for (User user : usuarios) {
+			if(user.getEmail().equals(email)) usuarioAchado = user;
+		}
+		return usuarioAchado;
 	}
 
 

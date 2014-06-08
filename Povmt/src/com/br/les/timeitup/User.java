@@ -107,7 +107,7 @@ public class User {
 	 */
 	@Override
 	public String toString() {
-		return name + ":" + email;
+		return name + ": " + email;
 	}
 
 	/** Method get for the User's week
@@ -146,7 +146,16 @@ public class User {
 			this.weeks[2] = new Week();
 		}
 	}
+
+	public Week getSecondWeek() {
+		
+		return weeks[1];
+	}
 	
+	public Week getThirdWeek() {
+		
+		return weeks[0];
+	}
 	
 	
 
