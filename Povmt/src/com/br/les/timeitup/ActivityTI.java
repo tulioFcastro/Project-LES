@@ -51,9 +51,9 @@ public class ActivityTI implements Comparable<ActivityTI>{
 	@Override
 	public int compareTo(ActivityTI actTi) {
 		if(this.getTime()>actTi.getTime()){
-			return 1;
-		}else if (this.getTime()< actTi.getTime()){
 			return -1;
+		}else if (this.getTime()< actTi.getTime()){
+			return 1;
 		}
 		return 0;
 	}

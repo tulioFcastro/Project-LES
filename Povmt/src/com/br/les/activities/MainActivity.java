@@ -65,6 +65,7 @@ public class MainActivity extends Activity {
 		for (User user : usuarios) {
 			if(user.getEmail().equals(email)) usuarioAchado = user;
 		}
+		userDBOperations.close();
 		return usuarioAchado;
 	}
 

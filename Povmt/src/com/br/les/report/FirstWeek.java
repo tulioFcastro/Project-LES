@@ -23,12 +23,13 @@ public class FirstWeek extends Fragment {
         
         // Get ListView object from xml
         listView = (ListView) rootView.findViewById(R.id.listViewWeek1);
-        String[] values = usuario.getWeekAtual().tiRank();        
+
+        String[] tiList = usuario.getWeekAtual().tiRank();    
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
-      
-      
-              // Assign adapter to ListView
+                android.R.layout.simple_list_item_1, android.R.id.text1, tiList);
+        
+       // Assign adapter to ListView
        listView.setAdapter(adapter); 
         
         return rootView;

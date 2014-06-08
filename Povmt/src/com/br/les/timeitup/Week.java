@@ -78,11 +78,17 @@ public class Week {
 	 */
 	public String[] tiRank(){
 		
-		String[] saida = new String[TiList.size()];
-		Collections.sort(TiList);
-		for (int i = 0; i < saida.length; i++) {
-			saida[i] = TiList.toString();
+		String[] saida;
+		if(TiList.size()==0){
+			saida = new String[]{"Não há atividade cadastrada"};
+		}else{
+			saida = new String[TiList.size()];
+			Collections.sort(TiList);
+			for (int i = 0; i < saida.length; i++) {
+				saida[i] = TiList.get(i).toString();
+			}
 		}
+		
 		return saida;
 		
 	}
@@ -91,6 +97,7 @@ public class Week {
 	public String toString() {
 		return TiList.toString();
 	}
+	
 	
 
 }

@@ -15,13 +15,13 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
  
         switch (index) {
         case 0:
-            // Top Rated fragment activity
+            // first week fragment activity
             return new FirstWeek();
         case 1:
-            // Games fragment activity
+            // second week fragment activity
             return new SecondWeek();
         case 2:
-            // Movies fragment activity
+            // third week fragment activity
             return new ThirdWeek();
         }
  

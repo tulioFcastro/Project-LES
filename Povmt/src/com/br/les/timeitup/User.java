@@ -123,8 +123,10 @@ public class User {
 	/** Method get for the User's week
 	 * 
 	 * @return
+	 *   The actual week
 	 */
 	public Week getWeekAtual() {
+		
 		return weeks[2];
 	}
 
@@ -147,11 +149,21 @@ public class User {
 		}
 	}
 
+	/** Method get for the User's week
+	 * 
+	 * @return
+	 *   The second week
+	 */
 	public Week getSecondWeek() {
 		
 		return weeks[1];
 	}
 	
+	/** Method get for the User's week
+	 * 
+	 * @return
+	 *   The third week
+	 */
 	public Week getThirdWeek() {
 		
 		return weeks[0];
