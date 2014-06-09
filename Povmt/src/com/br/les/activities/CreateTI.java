@@ -1,6 +1,5 @@
-package com.br.les.activities;
 
-import java.util.Arrays;
+package com.br.les.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,67 +16,74 @@ import com.br.les.timeitup.User;
 
 public class CreateTI extends Activity {
 
-	private ActivityTI my_activity_ti;
-	private NumberPicker hours;
-	private int time;
-	private User usuario;
-	private UserOperations userDBOperations;
+    private ActivityTI my_activity_ti;
+    private NumberPicker hours;
+    private int time;
+    private User usuario;
+    private UserOperations userDBOperations;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_create_ti);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_ti);
 
-		userDBOperations = new UserOperations(this);
-		
-		usuario = User.getInstance();
+        userDBOperations = new UserOperations(this);
 
-		hours = (NumberPicker) findViewById(R.id.hours);
+        usuario = User.getInstance();
 
-		hours.setMaxValue(24);
-		hours.setMinValue(1);
-		hours.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-			@Override
-			public void onValueChange(NumberPicker picker, int oldVal,
-					int newVal) {
-				hours.setValue(newVal);
-			}
-		});
-		Button addTI = (Button) findViewById(R.id.button_create);
-		addTI.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				EditText name = (EditText) findViewById(R.id.name_field);
-				time = hours.getValue();
-				CharSequence text = "Activity: " + name.getText().toString()
-						+ " time :" + String.valueOf(time);
-				Toast toast = Toast.makeText(getApplicationContext(), text,
-						Toast.LENGTH_SHORT);
-				toast.show();
+        hours = (NumberPicker) findViewById(R.id.hours);
 
-				my_activity_ti = new ActivityTI(name.getText().toString(), time);
-				usuario.isActualWeek();
-				usuario.getWeekAtual().addTI(my_activity_ti);
-				userDBOperations.open();
-				userDBOperations.updateUser(usuario);
-				userDBOperations.close();
-				
-				System.out.println("#########   -> "+usuario.getWeekAtual().toString()); // pra ver q ta ficando no db
-				
-				//TODO Creatte JSON and send to server
-				
-				finish();
+        hours.setMaxValue(24);
+        hours.setMinValue(1);
+        hours.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal,
+                    int newVal) {
+                hours.setValue(newVal);
+            }
+        });
+        Button addTI = (Button) findViewById(R.id.button_create);
+        addTI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText name = (EditText) findViewById(R.id.name_field);
+                time = hours.getValue();
+                CharSequence text = "Activity: " + name.getText().toString()
+                        + " time :" + String.valueOf(time);
+                Toast toast = Toast.makeText(getApplicationContext(), text,
+                        Toast.LENGTH_SHORT);
+                toast.show();
 
-			}
-		});
+                my_activity_ti = new ActivityTI(name.getText().toString(), time);
+                usuario.isActualWeek();
+                usuario.getWeekAtual().addTI(my_activity_ti);
 
-		Button cancelTI = (Button) findViewById(R.id.button_cancel);
-		cancelTI.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-	}
+                userDBOperations.open();
+                userDBOperations.updateUser(usuario);
+                userDBOperations.close();
+
+                System.out.println("#########   -> " + usuario.getWeekAtual().toString()); // pra
+                                                                                           // ver
+                                                                                           // q
+                                                                                           // ta
+                                                                                           // ficando
+                                                                                           // no
+                                                                                           // db
+
+                // TODO Creatte JSON and send to server
+
+                finish();
+
+            }
+        });
+
+        Button cancelTI = (Button) findViewById(R.id.button_cancel);
+        cancelTI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
 }
