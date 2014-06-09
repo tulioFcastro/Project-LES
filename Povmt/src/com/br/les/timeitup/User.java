@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class User {
 	private Week[] weeks;
-	private int id;
+	private long id;
 	private String name;
 	private String email;
 	
@@ -57,8 +57,12 @@ public class User {
 	 * @return
 	 * 		- The Id of the User
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
+	}
+	
+	public void setId(long id){
+		this.id = id;
 	}
 
 	/** Method get for the User's name

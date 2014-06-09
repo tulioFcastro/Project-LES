@@ -52,7 +52,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/textView2"
         android:text="Cancel"
-        android:onClick="addUser" />
+        android:onClick="cancel" />
 
     <Button
         android:id="@+id/createButton"
@@ -62,7 +62,7 @@
         android:layout_marginRight="14dp"
         android:layout_toLeftOf="@+id/textView2"
         android:text="Create"
-        android:onClick="cancel" />
+        android:onClick="addUser" />
     
     <ListView
         android:id="@android:id/list"

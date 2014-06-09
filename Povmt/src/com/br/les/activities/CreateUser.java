@@ -26,7 +26,7 @@ public class CreateUser extends ListActivity {
         userDBOperations = new UserOperations(this);
         userDBOperations.open();
         List<User> values = userDBOperations.getAllUser();
-
+        userDBOperations.close();
         ArrayAdapter<User> adapter = new ArrayAdapter<User>(this,
                 android.R.layout.simple_list_item_1, values);
         setListAdapter(adapter);
@@ -43,7 +43,9 @@ public class CreateUser extends ListActivity {
 //        Gson gson = new Gson();
 //        String user_json = gson.toJson(user);
 //        System.out.println("CREATE =="+user_json);
+        userDBOperations.open();
         userDBOperations.addUser(user, user.getEmail());
+        userDBOperations.close();
 //        User user = userDBOperations.addUser(name.getText().toString(), email
 //                .getText().toString());
 

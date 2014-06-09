@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
         // e aqui � criado o singleton para a aplica��o
 
         usuarioAtual = User.getInstance();
-
+        System.out.println(jogador);
         usuarioAtual = getUser(jogador);
 
         Button verSemanas = (Button) findViewById(R.id.Button_WeeklyMonitoring);
@@ -63,13 +63,13 @@ public class MainActivity extends Activity {
         userDBOperations = new UserOperations(this);
         userDBOperations.open();
         List<User> usuarios = userDBOperations.getAllUser();
-
         for (User user : usuarios) {
             if (user.getEmail().equals(email)) {
                 usuarioAchado = user;
             }
         }
         userDBOperations.close();
+        System.out.println("--------------->"+usuarioAchado.getEmail());
         return usuarioAchado;
     }
 

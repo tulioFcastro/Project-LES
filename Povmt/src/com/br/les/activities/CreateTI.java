@@ -30,6 +30,7 @@ public class CreateTI extends Activity {
         userDBOperations = new UserOperations(this);
 
         usuario = User.getInstance();
+        System.out.println("Usuario q ta adicionando a TI >>>>>>> "+usuario.getEmail());
 
         hours = (NumberPicker) findViewById(R.id.hours);
 
