@@ -64,6 +64,7 @@ public class UserOperations {
         values.put(DataBaseWrapper.USER_EMAIL, email);
 
         long userID = db.insert(DataBaseWrapper.TABLE_USER, null, values);
+        user.setId(userID);
         Cursor cursor = db.query(DataBaseWrapper.TABLE_USER, USER_TABLE_COLUMS,
                 DataBaseWrapper.USER_ID + " = " + userID, null, null, null,
                 null);
@@ -77,7 +78,7 @@ public class UserOperations {
      * @param user - The user to be deleted
      */
     public void deleteUser(User user) {
-        int id = user.getId();
+        long id = user.getId();
         db.delete(DataBaseWrapper.TABLE_USER, DataBaseWrapper.USER_ID + "="
                 + id, null);
     }
@@ -92,7 +93,7 @@ public class UserOperations {
         String user_json = gson.toJson(user);
         ContentValues values = new ContentValues();
         values.put(DataBaseWrapper.USER_NAME, user_json); // get author
-        values.put(DataBaseWrapper.USER_EMAIL, user.getEmail()); // get title
+//        values.put(DataBaseWrapper.USER_EMAIL, user.getEmail()); // get title
 
         // 3. updating row
         db.update(DataBaseWrapper.TABLE_USER, // table

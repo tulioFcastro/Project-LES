@@ -12,7 +12,7 @@ public class DataBaseWrapper extends SQLiteOpenHelper {
     public static final String USER_NAME = "_name"; // Database columns
     public static final String USER_EMAIL = "_email"; //
 
-    private static final String DATABASE_NAME = "LES5.db"; // The database name
+    private static final String DATABASE_NAME = "LES6.db"; // The database name
     private static final int DATABASE_VERSION = 1; // Database version
 
     private static final String DATABASE_CREATE = "create table " + TABLE_USER //
