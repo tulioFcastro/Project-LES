@@ -14,6 +14,9 @@
     <string name="add_ti">Add TI</string>
     <string name="hours">Hours</string>
     <string name="minutes">Minutes</string>
+    <string name="login_sucess">Logged user</string>
+    <string name="message_login_autocomplete">Enter your login</string>
+    <string name="welcomeToTimeItUp">Welcome to Time it Up!</string>
     <string name="title_activity_list_ti">ListTiActivity</string>
     <string name="title_activity_time_it__up_main">Time_it_Up_main</string>
     <string name="title_activity_create_ti">CreateTI</string>

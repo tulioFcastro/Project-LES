@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.br.les.povmt.R;
 
@@ -26,6 +27,8 @@ public class Login extends Activity {
                 name = (EditText) findViewById(R.id.user_name);
                 i.putExtra("NameUser", name.getText().toString());
                 startActivity(i);
+                Toast.makeText(getApplicationContext(),
+                        getString(R.string.login_sucess), Toast.LENGTH_SHORT).show();
 
             }
         });
