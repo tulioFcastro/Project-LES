@@ -2,6 +2,8 @@
 package com.br.les.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -42,6 +44,21 @@ public class Login extends Activity {
             }
         });
 
+    }
+    
+    /**
+     * If back button pressed, finalize Activity.
+     */
+    @Override
+    public final void onBackPressed() {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(R.string.quit_search)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialog, final int which) {
+                        finish();
+                    }
+                }).setNegativeButton(R.string.no, null).show();
     }
 
 }
