@@ -26,7 +26,6 @@ public class Login extends Activity {
 		loginUser.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Login.this, MainActivity.class);
 				name = (EditText) findViewById(R.id.user_name);
 				if (name.getText().toString().equals("")) {
 					Toast.makeText(getApplicationContext(),
@@ -39,9 +38,8 @@ public class Login extends Activity {
 
 					// Vejo se o usuário está no banco, se não estiver o retorno
 					// é null
-					if (userDBOperations.getUser(name.getText().toString()) != null
-							&& !userDBOperations.getUser(
-									name.getText().toString()).equals("")) {
+					if (userDBOperations.getUser(name.getText().toString()) != null) {
+						Intent i = new Intent(Login.this, MainActivity.class);
 						i.putExtra("NameUser", name.getText().toString());
 						startActivity(i);
 						Toast.makeText(getApplicationContext(),
