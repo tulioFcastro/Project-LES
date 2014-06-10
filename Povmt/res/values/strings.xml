@@ -18,6 +18,8 @@
     <string name="hours">Hours</string>
     <string name="minutes">Minutes</string>
     <string name="login_sucess">Logged user</string>
+    <string name="login_error">Invalid User</string>
+    <string name="inexistent_user">Inexistent user</string>
     <string name="message_login_autocomplete">Enter your login</string>
     <string name="welcomeToTimeItUp">Welcome to Time it Up!</string>
     <string name="title_activity_list_ti">ListTiActivity</string>
