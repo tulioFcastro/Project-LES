@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.br.les.database.UserOperations;
 import com.br.les.povmt.R;
 import com.br.les.timeitup.User;
+import com.br.les.timeitup.Week;
 
 public class MainActivity extends Activity {
 
@@ -57,6 +58,11 @@ public class MainActivity extends Activity {
 		});
 	}
 
+	public void weeklyMonitoring(View v){
+		Intent i = new Intent(MainActivity.this, WeeklyMonitoring.class);
+		startActivity(i);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
