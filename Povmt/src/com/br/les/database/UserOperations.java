@@ -64,7 +64,6 @@ public class UserOperations {
 		values.put(DataBaseWrapper.USER_EMAIL, email);
 
 		long userID = db.insert(DataBaseWrapper.TABLE_USER, null, values);
-		user.setId(userID);
 		Cursor cursor = db.query(DataBaseWrapper.TABLE_USER, USER_TABLE_COLUMS,
 				DataBaseWrapper.USER_ID + " = " + userID, null, null, null,
 				null);
@@ -93,6 +92,7 @@ public class UserOperations {
 	public void updateUser(User user) {
 
 		String user_json = gson.toJson(user);
+
 		ContentValues values = new ContentValues();
 		values.put(DataBaseWrapper.USER_NAME, user_json); // get author
 		// values.put(DataBaseWrapper.USER_EMAIL, user.getEmail()); // get title
@@ -100,8 +100,8 @@ public class UserOperations {
 		// 3. updating row
 		db.update(DataBaseWrapper.TABLE_USER, // table
 				values, // column/value
-				DataBaseWrapper.USER_ID + " = ?", // selections
-				new String[] { String.valueOf(user.getId()) });
+				DataBaseWrapper.USER_EMAIL + " = '" + user.getEmail() + "'", // selections
+				null);
 	}
 
 	/**

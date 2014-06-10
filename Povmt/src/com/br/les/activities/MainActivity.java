@@ -24,25 +24,16 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_ti_main);
 
 		Bundle bunble = getIntent().getExtras();
-		if (bunble != null) {
-			// Getting the value stored in the name "NAME"
-			jogador = bunble.getString("NameUser");
-		}
-
-		// Aqui eu pego o usu�rio cm o login passado na tela anterior
-		// ou o email fornecido pelo google
-		// e aqui � criado o singleton para a aplica��o
+		// Getting the value stored in the name "NAME"
+		jogador = bunble.getString("NameUser");
 
 		this.userDBOperations = new UserOperations(this);
 		this.userDBOperations.open();
-		System.out.println("#JOGADOR: " + jogador);
 		this.usuarioAtual = userDBOperations.getUser(jogador);
 		userDBOperations.close();
 
-		System.out.println("###USUARIO ATUAL: " + this.usuarioAtual);
-
-		Button verSemanas = (Button) findViewById(R.id.Button_WeeklyMonitoring);
-		verSemanas.setOnClickListener(new View.OnClickListener() {
+		Button lookWeeks = (Button) findViewById(R.id.Button_WeeklyMonitoring);
+		lookWeeks.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(MainActivity.this, WeeklyMonitoring.class);
@@ -50,11 +41,12 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		Button adicionarTI = (Button) findViewById(R.id.Button_AddTI);
-		adicionarTI.setOnClickListener(new View.OnClickListener() {
+		Button addTI = (Button) findViewById(R.id.Button_AddTI);
+		addTI.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(MainActivity.this, CreateTI.class);
+				i.putExtra("NameUser", jogador);
 				startActivity(i);
 			}
 		});
