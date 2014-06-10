@@ -39,6 +39,8 @@ public class MainActivity extends Activity {
 		this.usuarioAtual = userDBOperations.getUser(jogador);
 		userDBOperations.close();
 
+		System.out.println("###USUARIO ATUAL: " + this.usuarioAtual);
+
 		Button verSemanas = (Button) findViewById(R.id.Button_WeeklyMonitoring);
 		verSemanas.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -58,11 +60,11 @@ public class MainActivity extends Activity {
 		});
 	}
 
-	public void weeklyMonitoring(View v){
+	public void weeklyMonitoring(View v) {
 		Intent i = new Intent(MainActivity.this, WeeklyMonitoring.class);
 		startActivity(i);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

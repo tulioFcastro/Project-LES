@@ -31,7 +31,7 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
         setContentView(R.layout.activity_weekly_monitoring);
 
         // Initilization
-        viewPager = (ViewPager) findViewById(R.id.weekly_moitoring);
+        viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
         actionBar = getActionBar();
         mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
