@@ -39,7 +39,6 @@
         android:layout_weight="39"
         android:layout_x="66dp"
         android:layout_y="226dp"
-        android:onClick="weeklyMonitoring"
         android:background="@color/button_default"
         android:text="Weekly \nMonitoring"
         android:textColor="@color/text_yellow"
