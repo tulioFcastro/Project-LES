@@ -15,12 +15,14 @@ import com.br.les.timeitup.User;
 
 public class FirstWeek extends Fragment {
 	private ListView listView;
+
 	private String userName;
 	private User currentUser;
 	private UserOperations userDBOperations;
 
 	public void setUserName(String str) {
 		this.userName = str;
+
 	}
 
 	@Override
@@ -33,12 +35,14 @@ public class FirstWeek extends Fragment {
 				.getApplicationContext());
 		userDBOperations.open();
 
+
 		this.userName = ((WeeklyMonitoring) getActivity()).getUserName();
 		this.currentUser = this.userDBOperations.getUser(this.userName);
 
 		userDBOperations.close();
 
 		listView = (ListView) rootView.findViewById(R.id.listViewWeek1);
+
 
 		String[] tiList = currentUser.getWeekAtual().tiRank();
 
@@ -53,4 +57,5 @@ public class FirstWeek extends Fragment {
 
 		return rootView;
 	}
+
 }

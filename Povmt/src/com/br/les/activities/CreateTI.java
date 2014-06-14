@@ -18,11 +18,13 @@ public class CreateTI extends Activity {
 
 	private ActivityTI my_activity_ti;
 	private NumberPicker hours;
+
 	private NumberPicker minutes;
 	private User currentUser;
 	private UserOperations userDBOperations;
 	private String userName;
 	private final String USER_NAME = "NameUser";
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class CreateTI extends Activity {
 			}
 		});
 
+
 		minutes = (NumberPicker) findViewById(R.id.minutes);
 		minutes.setMaxValue(59);
 		minutes.setMinValue(0);
@@ -59,6 +62,7 @@ public class CreateTI extends Activity {
 				minutes.setValue(newVal);
 			}
 		});
+
 
 		Button addTI = (Button) findViewById(R.id.button_create);
 		addTI.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +92,7 @@ public class CreateTI extends Activity {
 				finish();
 				startActivity(i);
 
+
 			}
 		});
 
@@ -95,6 +100,7 @@ public class CreateTI extends Activity {
 		cancelTI.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+
 				Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
 				i.putExtra(USER_NAME, userName);
 				finish();
@@ -113,4 +119,5 @@ public class CreateTI extends Activity {
 		finish();
 		startActivity(i);
 	}
+
 }

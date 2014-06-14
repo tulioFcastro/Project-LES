@@ -1,5 +1,6 @@
 package com.br.les.report;
 
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ public class SecondWeek extends Fragment {
 	private UserOperations userDBOperations;
 	private String userName;
 
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -33,11 +35,14 @@ public class SecondWeek extends Fragment {
 		this.userName = ((WeeklyMonitoring) getActivity()).getUserName();
 		this.currentUser = this.userDBOperations.getUser(this.userName);
 
+
 		userDBOperations.close();
 
 		// Get ListView object from xml
 		listView = (ListView) rootView.findViewById(R.id.listViewWeek2);
+
 		String[] values = currentUser.getSecondWeek().tiRank();
+
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 				rootView.getContext(), android.R.layout.simple_list_item_1,
 				android.R.id.text1, values);

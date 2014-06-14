@@ -34,6 +34,7 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_weekly_monitoring);
 
+
 		Bundle bundle = getIntent().getExtras();
 		// Getting the value stored in the name "NAME"
 		System.out.println("###BAND: " + bundle);
@@ -90,6 +91,7 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 				finish();
 				startActivity(i);
 			}
+
 		});
 
 	}
@@ -103,14 +105,25 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+
+		/*
+		 * if (mViewPager != null) {
+		 * mViewPager.setCurrentItem(tab.getPosition()); }
+		 */
+
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+
+		// TODO Auto-generated method stub
+
+
 	}
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+
 	}
 
 	public String getUserName() {
@@ -155,6 +168,7 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 								finish();
 							}
 						}).show().setCancelable(false);
+
 	}
 
 }

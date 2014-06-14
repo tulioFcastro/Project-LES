@@ -14,6 +14,7 @@ import com.br.les.povmt.R;
 import com.br.les.timeitup.User;
 
 public class ThirdWeek extends Fragment {
+
 	private ListView listView;
 	private UserOperations userDBOperations;
 	private String userName;
@@ -32,11 +33,14 @@ public class ThirdWeek extends Fragment {
 		this.userName = ((WeeklyMonitoring) getActivity()).getUserName();
 		this.currentUser = this.userDBOperations.getUser(this.userName);
 
+
 		userDBOperations.close();
 
 		// Get ListView object from xml
 		listView = (ListView) rootView.findViewById(R.id.listViewWeek3);
+
 		String[] values = currentUser.getThirdWeek().tiRank();
+
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 				rootView.getContext(), android.R.layout.simple_list_item_1,
 				android.R.id.text1, values);

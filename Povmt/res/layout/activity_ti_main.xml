@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,23 +6,42 @@
     android:orientation="vertical"
     tools:context="com.ufcg.les.MainActivity" >
 
-    <Button
-        android:id="@+id/Button_WeeklyMonitoring"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Weekly Monitoring" 
-        android:onClick="weeklyMonitoring"/>
-
-    <Button
-        android:id="@+id/Button_AddTI"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add TI" />
-
     <TextView
         android:id="@+id/teste"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time it UP" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="181dp"
+        android:layout_x="76dp"
+        android:layout_y="100dp"
+        android:text="Time it UP"
+        android:textSize="32sp" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/Button_AddTI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="46dp"
+        android:layout_marginTop="28dp"
+        android:layout_weight="39"
+        android:layout_x="187dp"
+        android:layout_y="227dp"
+        android:background="@color/button_default"
+        android:text="Add TI"
+        android:textColor="@color/text_yellow"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/Button_WeeklyMonitoring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="14dp"
+        android:layout_weight="39"
+        android:layout_x="66dp"
+        android:layout_y="226dp"
+        android:background="@color/button_default"
+        android:text="Weekly \nMonitoring"
+        android:textColor="@color/text_yellow"
+        android:textSize="12sp" />
+
+</AbsoluteLayout>

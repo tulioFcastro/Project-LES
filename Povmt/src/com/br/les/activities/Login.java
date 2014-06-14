@@ -20,6 +20,7 @@ import com.br.les.povmt.R;
 import com.br.les.timeitup.HttpURLConnectionExample;
 
 public class Login extends Activity {
+
 	private EditText name;
 
 	@Override
@@ -119,6 +120,7 @@ public class Login extends Activity {
 		} else {
 			return false;
 		}
+
 	}
 
 	/**
