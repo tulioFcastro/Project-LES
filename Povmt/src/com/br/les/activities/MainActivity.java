@@ -33,24 +33,10 @@ public class MainActivity extends Activity {
 		Button weeklyMonitoring = (Button) findViewById(R.id.Button_WeeklyMonitoring);
 		weeklyMonitoring.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v) {				
 				Intent i = new Intent(MainActivity.this, WeeklyMonitoring.class);
 				i.putExtra("NameUser", jogador);
 				startActivity(i);
-			}
-		});
-		
-		Button get = (Button) findViewById(R.id.Button_getServer);
-		get.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				HttpURLConnectionExample h = new HttpURLConnectionExample();
-				try {
-					h.sendGet("aa");
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 		});
 	}

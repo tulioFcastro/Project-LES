@@ -15,7 +15,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-public class HttpURLConnectionExample {
+import android.os.AsyncTask;
+
+public class HttpURLConnectionExample extends AsyncTask<String, Void, byte[]> {
 
 	private final String USER_AGENT = "Mozilla/5.0";
 
@@ -33,15 +35,20 @@ public class HttpURLConnectionExample {
 
 	// HTTP GET request
 	public String sendGet(String mail) throws Exception {
-		
-		HttpURLConnection con = (HttpURLConnection) ( new URL("http://les-timeitup.appspot.com/get_user")).openConnection(); 
+		/**
+		System.out.println("com1");
+		HttpURLConnection con = (HttpURLConnection) ( new URL("http://les-timeitup.appspot.com/get_user?mail=raif@gmail.com")).openConnection(); 
 		con.setRequestMethod("GET");
+		System.out.println("com2");
 		con.setDoInput(true); 
 		con.setDoOutput(true); 
 		con.connect(); 
 
+		System.out.println("com3");
 		con.getOutputStream().write( ("mail=" + "raif@gmail.com").getBytes()); 
 		InputStream is = con.getInputStream(); 
+
+		System.out.println("com4");
 		byte[] b = new byte[1024]; 
 		StringBuffer buffer = new StringBuffer();
 		while ( is.read(b) != -1) 
@@ -49,7 +56,7 @@ public class HttpURLConnectionExample {
 		con.disconnect() ;
 		
 		return buffer.toString();
-		/**
+		*/
 		String url = "http://les-timeitup.appspot.com/get_user?mail=" + mail;
 
 		URL obj = new URL(url);
@@ -62,6 +69,7 @@ public class HttpURLConnectionExample {
 		// add request header
 		con.setRequestProperty("User-Agent", USER_AGENT);
 		System.setProperty("http.keepAlive", "false");
+		System.out.println("2222222211111111111111111111");
 		int responseCode = con.getResponseCode();
 		System.out.println("\nSending 'GET' request to URL : " + url);
 		System.out.println("Response Code : " + responseCode);
@@ -79,7 +87,7 @@ public class HttpURLConnectionExample {
 		System.out.println("###RESPONSE2: " + response);
 
 		// print result
-		return response.toString();**/
+		return response.toString();
 
 	}
 
@@ -134,5 +142,21 @@ public class HttpURLConnectionExample {
 	 * 
 	 * }
 	 **/
+
+	@Override
+	protected byte[] doInBackground(String... mail) {
+
+		try {
+			System.out.println(sendGet("raif@gmail.com"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void t(){
+		doInBackground("ssss");
+	}
 
 }

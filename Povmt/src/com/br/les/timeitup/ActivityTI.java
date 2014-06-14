@@ -12,13 +12,15 @@ public class ActivityTI implements Comparable<ActivityTI> {
 	 * 
 	 * @param name
 	 *            - The name of this Activity
+	 * @param priority 
 	 * @param time
 	 *            - The time spent on this Activity
 	 */
-	public ActivityTI(String name, int hour, int minute) {
+	public ActivityTI(String name, int hour, int minute, int priority) {
 		this.name = name;
 		this.hour = hour;
 		this.minute = minute;
+		this.priority = priority;
 	}
 
 	/**

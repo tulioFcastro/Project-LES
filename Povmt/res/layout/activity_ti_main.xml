@@ -30,20 +30,6 @@
         android:text="Add TI"
         android:textColor="@color/text_yellow"
         android:textSize="12sp" />
-    
-       <Button
-        android:id="@+id/Button_getServer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="46dp"
-        android:layout_marginTop="28dp"
-        android:layout_weight="39"
-        android:layout_x="187dp"
-        android:layout_y="227dp"
-        android:background="@color/button_default"
-        android:text="Get"
-        android:textColor="@color/text_yellow"
-        android:textSize="12sp" />
 
     <Button
         android:id="@+id/Button_WeeklyMonitoring"
