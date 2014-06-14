@@ -1,6 +1,7 @@
 package com.br.les.timeitup;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -32,7 +33,23 @@ public class HttpURLConnectionExample {
 
 	// HTTP GET request
 	public String sendGet(String mail) throws Exception {
+		
+		HttpURLConnection con = (HttpURLConnection) ( new URL("http://les-timeitup.appspot.com/get_user")).openConnection(); 
+		con.setRequestMethod("GET");
+		con.setDoInput(true); 
+		con.setDoOutput(true); 
+		con.connect(); 
 
+		con.getOutputStream().write( ("mail=" + "raif@gmail.com").getBytes()); 
+		InputStream is = con.getInputStream(); 
+		byte[] b = new byte[1024]; 
+		StringBuffer buffer = new StringBuffer();
+		while ( is.read(b) != -1) 
+			buffer.append(new String(b)); 
+		con.disconnect() ;
+		
+		return buffer.toString();
+		/**
 		String url = "http://les-timeitup.appspot.com/get_user?mail=" + mail;
 
 		URL obj = new URL(url);
@@ -62,7 +79,7 @@ public class HttpURLConnectionExample {
 		System.out.println("###RESPONSE2: " + response);
 
 		// print result
-		return response.toString();
+		return response.toString();**/
 
 	}
 
