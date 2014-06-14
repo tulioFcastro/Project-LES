@@ -15,12 +15,14 @@ import com.br.les.timeitup.User;
 
 public class FirstWeek extends Fragment {
 	private ListView listView;
-	private String jogador;
-	private User usuarioAtual;
+
+	private String userName;
+	private User currentUser;
 	private UserOperations userDBOperations;
 
-	public void setJogador(String str) {
-		this.jogador = str;
+	public void setUserName(String str) {
+		this.userName = str;
+
 	}
 
 	@Override
@@ -33,14 +35,16 @@ public class FirstWeek extends Fragment {
 				.getApplicationContext());
 		userDBOperations.open();
 
-		this.jogador = ((WeeklyMonitoring) getActivity()).getJogador();
-		this.usuarioAtual = this.userDBOperations.getUser(this.jogador);
+
+		this.userName = ((WeeklyMonitoring) getActivity()).getUserName();
+		this.currentUser = this.userDBOperations.getUser(this.userName);
 
 		userDBOperations.close();
 
 		listView = (ListView) rootView.findViewById(R.id.listViewWeek1);
 
-		String[] tiList = usuarioAtual.getWeekAtual().tiRank();
+
+		String[] tiList = currentUser.getWeekAtual().tiRank();
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 				rootView.getContext(), android.R.layout.simple_list_item_1,
@@ -54,15 +58,4 @@ public class FirstWeek extends Fragment {
 		return rootView;
 	}
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-	}
-
-	@Override
-	public void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-	}
 }
