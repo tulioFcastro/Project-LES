@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_weight="39"
         android:layout_x="59dp"
         android:layout_y="129dp"
         android:background="@color/field_edit"
@@ -31,28 +30,17 @@
 
     <NumberPicker
         android:id="@+id/hours"
-        android:layout_width="71dp"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="110dp"
         android:layout_marginRight="46dp"
-        android:layout_weight="39"
-        android:layout_x="82dp"
-        android:layout_y="171dp"
-        android:gravity="center" />
-
-    <NumberPicker
-        android:id="@+id/minutes"
-        android:layout_width="71dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="50dp"
-        android:layout_x="168dp"
-        android:layout_y="171dp"
+        android:layout_x="52dp"
+        android:layout_y="210dp"
         android:gravity="center" />
 
     <Button
         android:id="@+id/button_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="39"
         android:layout_x="86dp"
         android:layout_y="346dp"
         android:background="@color/button_default"
@@ -65,7 +53,6 @@
         android:id="@+id/button_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="39"
         android:layout_x="171dp"
         android:layout_y="346dp"
         android:background="@color/button_default"
@@ -73,5 +60,71 @@
         android:text="Cancel"
         android:textColor="@color/text_yellow"
         android:textSize="12sp" />
+
+    <NumberPicker
+        android:id="@+id/minutes"
+        android:layout_width="60dp"
+        android:layout_height="110dp"
+        android:layout_marginRight="50dp"
+        android:layout_x="125dp"
+        android:layout_y="210dp"
+        android:gravity="center" />
+
+    <RadioGroup
+        android:id="@+id/priorityGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="204dp"
+        android:layout_y="224dp" >
+
+        <RadioButton
+            android:id="@+id/hiPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="onRadioButtonClicked"
+            android:text="High" />
+
+        <RadioButton
+            android:id="@+id/mediumPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="Medium" />
+
+        <RadioButton
+            android:id="@+id/lowPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="Low" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="63dp"
+        android:layout_y="190dp"
+        android:text="Hours"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textMinutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="216dp"
+        android:layout_y="190dp"
+        android:text="Priority"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textPriority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="128dp"
+        android:layout_y="190dp"
+        android:text="Minutes"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </AbsoluteLayout>
