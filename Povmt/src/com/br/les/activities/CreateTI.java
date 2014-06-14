@@ -69,8 +69,7 @@ public class CreateTI extends Activity {
 				toast.show();
 
 				my_activity_ti = new ActivityTI(name.getText().toString(),
-						hours.getValue(), minutes.getValue());
-				my_activity_ti.setPriority(priority);
+						hours.getValue(), minutes.getValue(), priority);
 				currentUser.isActualWeek();
 				currentUser.getWeekAtual().addTI(my_activity_ti);
 

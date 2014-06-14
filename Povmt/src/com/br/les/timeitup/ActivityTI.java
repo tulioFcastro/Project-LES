@@ -12,13 +12,15 @@ public class ActivityTI implements Comparable<ActivityTI> {
 	 * 
 	 * @param name
 	 *            - The name of this Activity
+	 * @param priority2 
 	 * @param time
 	 *            - The time spent on this Activity
 	 */
-	public ActivityTI(String name, int hour, int minute) {
+	public ActivityTI(String name, int hour, int minute, int priority) {
 		this.name = name;
 		this.hour = hour;
 		this.minute = minute;
+		this.priority = priority;
 	}
 
 	/**
@@ -103,8 +105,16 @@ public class ActivityTI implements Comparable<ActivityTI> {
 	 * 
 	 * @return - int that represents this activity priority
 	 */
-	public int getPriority() {
-		return priority;
+	public String getPriority() {
+		switch (priority) {
+		case 2:
+			return "High";
+		case 1:
+			return "Medium";
+		case 0:
+			return "Low";
+		}
+		return "";
 	}
 
 	/**
@@ -138,7 +148,7 @@ public class ActivityTI implements Comparable<ActivityTI> {
 	 */
 	@Override
 	public String toString() {
-		return " " + getName() + ",  " + this.getHour() +  this.getMinute();
+		return " " + getName() + " - " + this.getHour() +  this.getMinute()+" - "+ getPriority();
 	}
 
 	public int getMinute() {
