@@ -89,7 +89,7 @@ public class Week {
 				out[i] = TiList.get(i).toString();
 				DecimalFormat df = new DecimalFormat("0.00");
 
-				out[i] += ", proportion: "
+				out[i] += ", "
 						+ df.format(proportion(TiList.get(i))) + "%";
 			}
 		}
@@ -109,7 +109,6 @@ public class Week {
 		for (ActivityTI actTi : TiList) {
 			total += actTi.getTime();
 		}
-		System.out.println(total + "");
 		return activityTI.getTime() / total * 100;
 
 	}

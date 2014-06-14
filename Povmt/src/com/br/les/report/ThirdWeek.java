@@ -9,14 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.br.les.activities.WeeklyMonitoring;
-import com.br.les.database.UserOperations;
 import com.br.les.povmt.R;
 import com.br.les.timeitup.User;
 
 public class ThirdWeek extends Fragment {
 
 	private ListView listView;
-	private UserOperations userDBOperations;
 	private String userName;
 	private User currentUser;
 
@@ -26,15 +24,9 @@ public class ThirdWeek extends Fragment {
 
 		View rootView = inflater.inflate(R.layout.third_week, container, false);
 
-		this.userDBOperations = new UserOperations(this.getActivity()
-				.getApplicationContext());
-		userDBOperations.open();
 
 		this.userName = ((WeeklyMonitoring) getActivity()).getUserName();
-		this.currentUser = this.userDBOperations.getUser(this.userName);
-
-
-		userDBOperations.close();
+		this.currentUser = User.getInstance();
 
 		// Get ListView object from xml
 		listView = (ListView) rootView.findViewById(R.id.listViewWeek3);

@@ -10,7 +10,6 @@ import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.br.les.database.UserOperations;
 import com.br.les.povmt.R;
 import com.br.les.timeitup.ActivityTI;
 import com.br.les.timeitup.User;
@@ -22,7 +21,6 @@ public class CreateTI extends Activity {
 
 	private NumberPicker minutes;
 	private User currentUser;
-	private UserOperations userDBOperations;
 	private String userName;
 	private int priority;
 	private final String USER_NAME = "NameUser";
@@ -32,14 +30,12 @@ public class CreateTI extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_ti);
 
-		userDBOperations = new UserOperations(this);
 		Bundle bunble = getIntent().getExtras();
 		userName = bunble.getString(USER_NAME);
 		priority = 2;
 		// Tirar essa conexão com o BD Local
-		userDBOperations.open();
-		currentUser = userDBOperations.getUser(userName);
-		userDBOperations.close();
+		currentUser = User.getInstance();
+
 
 		hours = (NumberPicker) findViewById(R.id.hours);
 		hours.setMaxValue(167);
@@ -77,11 +73,6 @@ public class CreateTI extends Activity {
 				my_activity_ti.setPriority(priority);
 				currentUser.isActualWeek();
 				currentUser.getWeekAtual().addTI(my_activity_ti);
-
-				// Tirar essa conexão com o BD Local e fazer a com o Servidor
-				userDBOperations.open();
-				userDBOperations.updateUser(currentUser);
-				userDBOperations.close();
 
 				Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
 				i.putExtra(USER_NAME, userName);
