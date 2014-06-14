@@ -70,7 +70,7 @@ public class CreateTI extends Activity {
 
 				my_activity_ti = new ActivityTI(name.getText().toString(),
 						hours.getValue(), minutes.getValue(), priority);
-				my_activity_ti.setPriority(priority);
+
 				currentUser.isActualWeek();
 				currentUser.getWeekAtual().addTI(my_activity_ti);
 

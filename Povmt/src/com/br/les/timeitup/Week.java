@@ -10,6 +10,9 @@ public class Week {
 
 	private int weekOftheyear;
 	private final List<ActivityTI> TiList;
+	private final List<ActivityTI> tiListHigh;
+	private final List<ActivityTI> tiListMedium;
+	private final List<ActivityTI> tiListLow;
 
 	/*
 	 * A new Week constructor
@@ -17,6 +20,9 @@ public class Week {
 	public Week() {
 		weekOftheyear = Calendar.WEEK_OF_YEAR;
 		TiList = new ArrayList<ActivityTI>();
+		tiListHigh = new ArrayList<ActivityTI>();
+		tiListMedium = new ArrayList<ActivityTI>();
+		tiListLow = new ArrayList<ActivityTI>();
 	}
 
 	/**
@@ -81,21 +87,49 @@ public class Week {
 
 		String[] out;
 		if (TiList.size() == 0) {
-			out = new String[] { "N�o h� atividade cadastrada" };
+			out = new String[] { "Nao ha atividade cadastrada" };
 		} else {
-			out = new String[TiList.size()];
-			Collections.sort(TiList);
-			for (int i = 0; i < out.length; i++) {
+			ordenateLevels();
+			out = new String[TiList.size() + 1];
+			
+			for (int i = 0; i < out.length-1; i++) {
 				out[i] = TiList.get(i).toString();
 				DecimalFormat df = new DecimalFormat("0.00");
 
-				out[i] += ", "
+				out[i] += " - "
 						+ df.format(proportion(TiList.get(i))) + "%";
+				
 			}
+			
+			out[out.length-1] = "High: "+weekHigh() +"Med " + weekMed() +"Low: "+ weekLow();	
 		}
 
 		return out;
 
+	}
+
+	private String weekLow() {
+		int out = 0;
+		for (ActivityTI actTi : tiListLow) {
+			out+=actTi.getHour();
+		}
+		return String.valueOf(out);
+	}
+
+	private String weekMed() {
+		int out = 0;
+		for (ActivityTI actTi : tiListMedium) {
+			out+=actTi.getHour();
+		}
+		return String.valueOf(out);
+	}
+
+	private String weekHigh() {
+		int out = 0;
+		for (ActivityTI actTi : tiListHigh) {
+			out+=actTi.getHour();
+		}
+		return String.valueOf(out);
 	}
 
 	/**
@@ -116,6 +150,31 @@ public class Week {
 	@Override
 	public String toString() {
 		return TiList.toString();
+	}
+	
+	private void ordenateLevels(){
+		for (ActivityTI actTi : TiList) {
+			if(actTi.getPriority()=="High"){
+				tiListHigh.add(actTi);
+			}else if (actTi.getPriority()=="Medium"){
+				tiListMedium.add(actTi);
+			}else{
+				tiListLow.add(actTi);
+			}
+		}
+		
+		Collections.sort(tiListHigh);
+		Collections.sort(tiListMedium);
+		Collections.sort(tiListLow);
+		
+		TiList.clear();
+		TiList.addAll(tiListHigh);
+		TiList.addAll(tiListMedium);
+		TiList.addAll(tiListLow);
+		
+		tiListHigh.clear();
+		tiListMedium.clear();
+		tiListLow.clear();
 	}
 
 }
