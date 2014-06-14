@@ -138,8 +138,7 @@ public class ActivityTI implements Comparable<ActivityTI> {
 	 */
 	@Override
 	public String toString() {
-		return "Name: " + getName() + ", time: " + this.getHour() + ":"
-				+ this.getMinute();
+		return " " + getName() + ",  " + this.getHour() +  this.getMinute();
 	}
 
 	public int getMinute() {
