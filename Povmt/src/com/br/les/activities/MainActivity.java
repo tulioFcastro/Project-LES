@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.br.les.povmt.R;
+import com.br.les.timeitup.HttpURLConnectionExample;
 import com.br.les.timeitup.User;
 
 public class MainActivity extends Activity {
@@ -36,6 +37,20 @@ public class MainActivity extends Activity {
 				Intent i = new Intent(MainActivity.this, WeeklyMonitoring.class);
 				i.putExtra("NameUser", jogador);
 				startActivity(i);
+			}
+		});
+		
+		Button get = (Button) findViewById(R.id.Button_getServer);
+		get.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				HttpURLConnectionExample h = new HttpURLConnectionExample();
+				try {
+					h.sendGet("aa");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}
