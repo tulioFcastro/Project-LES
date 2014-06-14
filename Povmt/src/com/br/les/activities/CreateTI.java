@@ -1,7 +1,7 @@
-
 package com.br.les.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,75 +16,101 @@ import com.br.les.timeitup.User;
 
 public class CreateTI extends Activity {
 
-    private ActivityTI my_activity_ti;
-    private NumberPicker hours;
-    private int time;
-    private User usuario;
-    private UserOperations userDBOperations;
+	private ActivityTI my_activity_ti;
+	private NumberPicker hours;
+	private NumberPicker minutes;
+	private User currentUser;
+	private UserOperations userDBOperations;
+	private String userName;
+	private final String USER_NAME = "NameUser";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_ti);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_create_ti);
 
-        userDBOperations = new UserOperations(this);
+		userDBOperations = new UserOperations(this);
+		Bundle bunble = getIntent().getExtras();
+		userName = bunble.getString(USER_NAME);
 
-        usuario = User.getInstance();
-        System.out.println("Usuario q ta adicionando a TI >>>>>>> "+usuario.getEmail());
+		// Tirar essa conexão com o BD Local
+		userDBOperations.open();
+		currentUser = userDBOperations.getUser(userName);
+		userDBOperations.close();
 
-        hours = (NumberPicker) findViewById(R.id.hours);
+		hours = (NumberPicker) findViewById(R.id.hours);
+		hours.setMaxValue(167);
+		hours.setMinValue(0);
+		hours.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+			@Override
+			public void onValueChange(NumberPicker picker, int oldVal,
+					int newVal) {
+				hours.setValue(newVal);
+			}
+		});
 
-        hours.setMaxValue(24);
-        hours.setMinValue(1);
-        hours.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal,
-                    int newVal) {
-                hours.setValue(newVal);
-            }
-        });
-        Button addTI = (Button) findViewById(R.id.button_create);
-        addTI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText name = (EditText) findViewById(R.id.name_field);
-                time = hours.getValue();
-                CharSequence text = "Activity: " + name.getText().toString()
-                        + " time :" + String.valueOf(time);
-                Toast toast = Toast.makeText(getApplicationContext(), text,
-                        Toast.LENGTH_SHORT);
-                toast.show();
+		minutes = (NumberPicker) findViewById(R.id.minutes);
+		minutes.setMaxValue(59);
+		minutes.setMinValue(0);
+		minutes.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+			@Override
+			public void onValueChange(NumberPicker picker, int oldVal,
+					int newVal) {
+				minutes.setValue(newVal);
+			}
+		});
 
-                my_activity_ti = new ActivityTI(name.getText().toString(), time);
-                usuario.isActualWeek();
-                usuario.getWeekAtual().addTI(my_activity_ti);
+		Button addTI = (Button) findViewById(R.id.button_create);
+		addTI.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				EditText name = (EditText) findViewById(R.id.name_field);
 
-                userDBOperations.open();
-                userDBOperations.updateUser(usuario);
-                userDBOperations.close();
+				// Passando os dois valores do NumberPicker para float
 
-                System.out.println("#########   -> " + usuario.getWeekAtual().toString()); // pra
-                                                                                           // ver
-                                                                                           // q
-                                                                                           // ta
-                                                                                           // ficando
-                                                                                           // no
-                                                                                           // db
+				// Mensagem pro usuário
+				Toast toast = Toast.makeText(getApplicationContext(),
+						R.string.register_ok, Toast.LENGTH_SHORT);
+				toast.show();
 
-                // TODO Creatte JSON and send to server
+				my_activity_ti = new ActivityTI(name.getText().toString(),
+						hours.getValue(), minutes.getValue());
+				currentUser.isActualWeek();
+				currentUser.getWeekAtual().addTI(my_activity_ti);
 
-                finish();
+				// Tirar essa conexão com o BD Local e fazer a com o Servidor
+				userDBOperations.open();
+				userDBOperations.updateUser(currentUser);
+				userDBOperations.close();
 
-            }
-        });
+				Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
+				i.putExtra(USER_NAME, userName);
+				finish();
+				startActivity(i);
 
-        Button cancelTI = (Button) findViewById(R.id.button_cancel);
-        cancelTI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
+			}
+		});
 
+		Button cancelTI = (Button) findViewById(R.id.button_cancel);
+		cancelTI.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
+				i.putExtra(USER_NAME, userName);
+				finish();
+				startActivity(i);
+			}
+		});
+	}
+
+	/**
+	 * If back button pressed, finalize Activity.
+	 */
+	@Override
+	public final void onBackPressed() {
+		Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
+		i.putExtra(USER_NAME, userName);
+		finish();
+		startActivity(i);
+	}
 }

@@ -7,15 +7,15 @@ public class User {
 	private long id;
 	private String name;
 	private String email;
-	
+
 	private static User instance = null;
-	
+
 	public static User getInstance() {
-	      if(instance == null) {
-	         instance = new User();
-	      }
-	      return instance;
-	   }
+		if (instance == null) {
+			instance = new User();
+		}
+		return instance;
+	}
 
 	/**
 	 * Default Creator of a new User
@@ -24,23 +24,24 @@ public class User {
 		weeks = new Week[3];
 		initializeWeeks();
 	}
-	
-	/** Creator for a new user, with its Id, Name and Email
+
+	/**
+	 * Creator for a new user, with its Id, Name and Email
 	 * 
 	 * @param name
-	 * 		- Name of the new User
+	 *            - Name of the new User
 	 * @param email
-	 * 		- The email for this User, it has to be unique
+	 *            - The email for this User, it has to be unique
 	 */
-	public User( String name, String email) {
+	public User(String name, String email) {
 
 		this.name = name;
 		this.email = email;
 		initializeWeeks();
 	}
 
-
-	/** Private method used to initialize the weeks for this User.
+	/**
+	 * Private method used to initialize the weeks for this User.
 	 * 
 	 */
 	private void initializeWeeks() {
@@ -52,90 +53,90 @@ public class User {
 		this.weeks[1].decrementWeekOfTheYear(1);
 	}
 
-	/** Method get for the User's id.
+	/**
+	 * Method get for the User's id.
 	 * 
-	 * @return
-	 * 		- The Id of the User
+	 * @return - The Id of the User
 	 */
 	public long getId() {
 		return id;
 	}
-	
-	public void setId(long id){
+
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	/** Method get for the User's name
+	/**
+	 * Method get for the User's name
 	 * 
-	 * @return
-	 * 		- The name of this User
+	 * @return - The name of this User
 	 */
 	public String getName() {
 		return name;
 	}
 
-	/** Method set for the User's name
+	/**
+	 * Method set for the User's name
 	 * 
 	 * @param name
-	 * 		- The new name of this User
+	 *            - The new name of this User
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/** Method get for the User's email
+	/**
+	 * Method get for the User's email
 	 * 
-	 * @return
-	 * 		- The email of this User
+	 * @return - The email of this User
 	 */
 	public String getEmail() {
 		return email;
 	}
 
-
-	/** Method set for the User 
+	/**
+	 * Method set for the User
 	 * 
 	 * @param email
-	 * 		- The new email for this User
+	 *            - The new email for this User
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	/** To String Method for User
-	 *  Format - <User's name> : <User's email>
+	/**
+	 * To String Method for User Format - <User's name> : <User's email>
 	 * 
 	 * 
-	 * @return
-	 * 		- String that represents the User
+	 * @return - String that represents the User
 	 */
 	@Override
 	public String toString() {
-		return name + ": " + email;
+		return "Name: " + name + "  |  Email: " + email;
 	}
 
-	/** Method get for the User's week
+	/**
+	 * Method get for the User's week
 	 * 
-	 * @return
-	 * 		- The weeks of this User
+	 * @return - The weeks of this User
 	 */
 	public Week[] getWeeks() {
 		return weeks;
 	}
 
-
-	/** Method get for the User's week
+	/**
+	 * Method get for the User's week
 	 * 
-	 * @return
-	 *   The actual week
+	 * @return The actual week
 	 */
 	public Week getWeekAtual() {
-		
+
 		return weeks[2];
 	}
 
-	/** Method that verifies if the current week for this user
-	 *  is the same current week of the year
+	/**
+	 * Method that verifies if the current week for this user is the same
+	 * current week of the year
 	 * 
 	 */
 	public void isActualWeek() {
@@ -153,26 +154,24 @@ public class User {
 		}
 	}
 
-	/** Method get for the User's week
+	/**
+	 * Method get for the User's week
 	 * 
-	 * @return
-	 *   The second week
+	 * @return The second week
 	 */
 	public Week getSecondWeek() {
-		
+
 		return weeks[1];
 	}
-	
-	/** Method get for the User's week
+
+	/**
+	 * Method get for the User's week
 	 * 
-	 * @return
-	 *   The third week
+	 * @return The third week
 	 */
 	public Week getThirdWeek() {
-		
+
 		return weeks[0];
 	}
-	
-	
 
 }
