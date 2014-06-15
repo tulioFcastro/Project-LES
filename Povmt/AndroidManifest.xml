@@ -3,8 +3,6 @@
     package="com.br.les.povmt"
     android:versionCode="1"
     android:versionName="1.0" >
-    
-    
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -29,24 +27,14 @@
             android:label="@string/title_activity_ti" >
         </activity>
         <activity
-            android:name="com.br.les.activities.MainActivity"
-            android:label="@string/title_activity_ti"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name="com.br.les.activities.ListTiActivity"
             android:label="@string/title_activity_list_ti"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.br.les.activities.Time_it_Up_main"
-            android:label="@string/title_activity_time_it__up_main" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_time_it__up_main"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.br.les.activities.CreateTI"
@@ -57,6 +45,11 @@
             android:name="com.br.les.activities.WeeklyMonitoring"
             android:label="@string/title_activity_weekly_monitoring"
             android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
