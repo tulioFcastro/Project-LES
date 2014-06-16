@@ -48,19 +48,7 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
         setContentView(R.layout.activity_weekly_monitoring);
 
         if (!this.isConnected()) {
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle(R.string.connection_error)
-                    .setMessage(R.string.try_again_connection)
-                    .setPositiveButton(R.string.exit,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(
-                                        final DialogInterface dialog,
-                                        final int which) {
-                                    finish();
-                                }
-                            }).setCancelable(false).show();
+            dialogError(R.string.connection_error, R.string.try_again_connection);
         } else {
             String possibleEmail = "";
             try {
@@ -74,26 +62,11 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
                 Log.i("Exception", "Exception:" + e);
             }
 
-            System.out.println("#####EMAIL: " + possibleEmail);
-
             HttpURLConnectionExample con = new HttpURLConnectionExample();
 
             // No Google account logged
-
             if (possibleEmail.equals("")) {
-                new AlertDialog.Builder(this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle(R.string.user_login_error)
-                        .setMessage(R.string.try_again_user_login)
-                        .setPositiveButton(R.string.exit,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(
-                                            final DialogInterface dialog,
-                                            final int which) {
-                                        finish();
-                                    }
-                                }).setCancelable(false).show();
+                dialogError(R.string.user_login_error, R.string.try_again_user_login);
             } else {
                 try {
                     this.json = con.requestJson(possibleEmail);
@@ -103,7 +76,7 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
                 } catch (Exception e) {
                     Log.i("Exception", "Exception:" + e);
                 }
-
+                
                 // Initilization
                 viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
                 actionBar = getActionBar();
@@ -216,13 +189,14 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
     }
 
     /**
-     * Creates dialog for the user to see that there is no logged-mail
+     * If some error, creates dialog for the user
      */
-    public final void dialogNoUserLogged() {
+    public final void dialogError(int title, int message) {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(R.string.no_user_logged_gmail)
-                .setPositiveButton(R.string.yes,
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(R.string.exit,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(final DialogInterface dialog,
@@ -233,8 +207,12 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 
     }
 
+    /**
+     * Check internet connection
+     * 
+     * @return the connection
+     */
     public boolean isConnected() {
-        System.out.println("CONEXAO");
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if ((networkInfo != null) && networkInfo.isConnected()) {
