@@ -1,6 +1,9 @@
 
 package com.br.les.activities;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
@@ -26,6 +29,7 @@ import com.br.les.povmt.R;
 import com.br.les.report.TabsPagerAdapter;
 import com.br.les.timeitup.User;
 import com.br.les.util.HttpURLConnectionExample;
+import com.google.gson.Gson;
 
 public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 
@@ -71,12 +75,23 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
                 try {
                     this.json = con.requestJson(possibleEmail);
 
-                    // Fazer os tratamentos do Json aqui!
+                    Gson gson = new Gson();
+                    if (this.json != null && this.json.equals("User not found")) {
+                        this.currentUser = new User(possibleEmail, possibleEmail);
+                        String userJson = gson.toJson(this.currentUser);
+                        // Falta enviar pro servidor...
+
+                    } else if (this.json == null) {
+                        dialogError(R.string.request_error, R.string.request_error_dialog);
+                    }
+                    else {
+                        this.currentUser = gson.fromJson(this.json, User.class);
+                    }
 
                 } catch (Exception e) {
                     Log.i("Exception", "Exception:" + e);
                 }
-                
+
                 // Initilization
                 viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
                 actionBar = getActionBar();
