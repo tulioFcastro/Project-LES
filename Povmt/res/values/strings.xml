@@ -5,7 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="quit_search">Do you want to quit?</string>
     <string name="connection_error">Connection error</string>
-    <string name="try_again">See your internet connection and try again.</string>
+    <string name="try_again_connection">See your internet connection and try again.</string>
+    <string name="user_login_error">No google account logged</string>
+    <string name="try_again_user_login">Connect with your google account and try again.</string>
     <string name="no_user_logged_gmail">Log in to your Google account and try again</string>
     <string name="hello_world">Hello world!</string>
     <string name="register_ok">Registered TI</string>

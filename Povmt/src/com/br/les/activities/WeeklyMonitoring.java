@@ -39,6 +39,7 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
     };
     private String userName;
     private User currentUser;
+    private String json;
 
     @SuppressLint("NewApi")
     @Override
@@ -50,7 +51,7 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle(R.string.connection_error)
-                    .setMessage(R.string.try_again)
+                    .setMessage(R.string.try_again_connection)
                     .setPositiveButton(R.string.exit,
                             new DialogInterface.OnClickListener() {
                                 @Override
@@ -77,69 +78,84 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 
             HttpURLConnectionExample con = new HttpURLConnectionExample();
 
-            try {
-                System.out.println("###ANTES DO TRY");
-                System.out.println("#####JSON: " + con.requestJson(possibleEmail));
-                System.out.println("###DEPOIS DO TRY");
-                // Criar o objeto User com o JSON recebido ou tratar caso venha
-                // "User not found".
-                
+            // No Google account logged
 
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            if (possibleEmail.equals("")) {
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle(R.string.user_login_error)
+                        .setMessage(R.string.try_again_user_login)
+                        .setPositiveButton(R.string.exit,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(
+                                            final DialogInterface dialog,
+                                            final int which) {
+                                        finish();
+                                    }
+                                }).setCancelable(false).show();
+            } else {
+                try {
+                    this.json = con.requestJson(possibleEmail);
+
+                    // Fazer os tratamentos do Json aqui!
+
+                } catch (Exception e) {
+                    Log.i("Exception", "Exception:" + e);
+                }
+
+                // Initilization
+                viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
+                actionBar = getActionBar();
+                mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+
+                viewPager.setAdapter(mAdapter);
+                actionBar.setHomeButtonEnabled(false);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+                // Adding Tabs
+                for (String tab_name : tabs) {
+                    actionBar.addTab(actionBar.newTab().setText(tab_name)
+                            .setTabListener(this));
+                }
+
+                /**
+                 * on swiping the viewpager make respective tab selected
+                 */
+                viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        // on changing the page
+                        // make respected tab selected
+                        actionBar.setSelectedNavigationItem(position);
+                    }
+
+                    @Override
+                    public void onPageScrolled(int arg0, float arg1, int arg2) {
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int arg0) {
+                    }
+
+                });
+
+                Button addTI = (Button) findViewById(R.id.createTI);
+                addTI.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(WeeklyMonitoring.this, CreateTI.class);
+                        i.putExtra("NameUser", userName);
+                        finish();
+                        startActivity(i);
+                    }
+
+                });
+
             }
 
         }
-
-        // Initilization
-        viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
-        actionBar = getActionBar();
-        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-
-        viewPager.setAdapter(mAdapter);
-        actionBar.setHomeButtonEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Adding Tabs
-        for (String tab_name : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name)
-                    .setTabListener(this));
-        }
-
-        /**
-         * on swiping the viewpager make respective tab selected
-         */
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int position) {
-                // on changing the page
-                // make respected tab selected
-                actionBar.setSelectedNavigationItem(position);
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-            }
-
-        });
-
-        Button addTI = (Button) findViewById(R.id.createTI);
-        addTI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(WeeklyMonitoring.this, CreateTI.class);
-                i.putExtra("NameUser", userName);
-                finish();
-                startActivity(i);
-            }
-
-        });
 
     }
 
