@@ -23,9 +23,10 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         case 2:
             // third week fragment activity
             return new ThirdWeek();
+        default:
+        	return null;
         }
  
-        return null;
     }
  
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
 public class Week {
 
 	private int weekOftheyear;
-	private final List<ActivityTI> TiList;
+	private final List<ActivityTI> tiList;
 	private final List<ActivityTI> tiListHigh;
 	private final List<ActivityTI> tiListMedium;
 	private final List<ActivityTI> tiListLow;
@@ -19,7 +19,7 @@ public class Week {
 	 */
 	public Week() {
 		weekOftheyear = Calendar.WEEK_OF_YEAR;
-		TiList = new ArrayList<ActivityTI>();
+		tiList = new ArrayList<ActivityTI>();
 		tiListHigh = new ArrayList<ActivityTI>();
 		tiListMedium = new ArrayList<ActivityTI>();
 		tiListLow = new ArrayList<ActivityTI>();
@@ -42,11 +42,11 @@ public class Week {
 	 *            - TI to be registered or to have its time updated
 	 */
 	public void addTI(ActivityTI actTI) {
-		if (TiList.contains(actTI)) {
-			int index = TiList.indexOf(actTI);
-			TiList.get(index).addTime(actTI.getHour(), actTI.getMinute());
+		if (tiList.contains(actTI)) {
+			int index = tiList.indexOf(actTI);
+			tiList.get(index).addTime(actTI.getHour(), actTI.getMinute());
 		} else {
-			TiList.add(actTI);
+			tiList.add(actTI);
 		}
 	}
 
@@ -70,9 +70,9 @@ public class Week {
 	 */
 	public String timeOfTI(ActivityTI actTI) {
 		float saida = 0;
-		if (TiList.contains(actTI)) {
-			int index = TiList.indexOf(actTI);
-			saida = TiList.get(index).getTime();
+		if (tiList.contains(actTI)) {
+			int index = tiList.indexOf(actTI);
+			saida = tiList.get(index).getTime();
 		}
 		return String.valueOf(saida);
 	}
@@ -86,18 +86,18 @@ public class Week {
 	public String[] tiRank() {
 
 		String[] out;
-		if (TiList.size() == 0) {
+		if (tiList.isEmpty()) {
 			out = new String[] { "Nao ha atividade cadastrada" };
 		} else {
 			ordenateLevels();
-			out = new String[TiList.size() + 1];
+			out = new String[tiList.size() + 1];
 			
 			for (int i = 0; i < out.length-1; i++) {
-				out[i] = TiList.get(i).toString();
+				out[i] = tiList.get(i).toString();
 				DecimalFormat df = new DecimalFormat("0.00");
 
 				out[i] += " - "
-						+ df.format(proportion(TiList.get(i))) + "%";
+						+ df.format(proportion(tiList.get(i))) + "%";
 				
 			}
 			
@@ -140,7 +140,7 @@ public class Week {
 	private float proportion(ActivityTI activityTI) {
 		float total = 0;
 
-		for (ActivityTI actTi : TiList) {
+		for (ActivityTI actTi : tiList) {
 			total += actTi.getTime();
 		}
 		return activityTI.getTime() / total * 100;
@@ -149,14 +149,16 @@ public class Week {
 
 	@Override
 	public String toString() {
-		return TiList.toString();
+		return tiList.toString();
 	}
 	
 	private void ordenateLevels(){
-		for (ActivityTI actTi : TiList) {
-			if(actTi.getPriority()=="High"){
+		String high = "High";
+		String medium = "Medium";
+		for (ActivityTI actTi : tiList) {
+			if(actTi.getPriority().equals(high)){
 				tiListHigh.add(actTi);
-			}else if (actTi.getPriority()=="Medium"){
+			}else if (actTi.getPriority().equals(medium)){
 				tiListMedium.add(actTi);
 			}else{
 				tiListLow.add(actTi);
@@ -167,10 +169,10 @@ public class Week {
 		Collections.sort(tiListMedium);
 		Collections.sort(tiListLow);
 		
-		TiList.clear();
-		TiList.addAll(tiListHigh);
-		TiList.addAll(tiListMedium);
-		TiList.addAll(tiListLow);
+		tiList.clear();
+		tiList.addAll(tiListHigh);
+		tiList.addAll(tiListMedium);
+		tiList.addAll(tiListLow);
 		
 		tiListHigh.clear();
 		tiListMedium.clear();

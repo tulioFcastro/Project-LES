@@ -16,14 +16,14 @@ import com.br.les.timeitup.User;
 
 public class CreateTI extends Activity {
 
-	private ActivityTI my_activity_ti;
+	private ActivityTI myMi;
 	private NumberPicker hours;
 
 	private NumberPicker minutes;
 	private User currentUser;
 	private String userName;
 	private int priority;
-	private final String USER_NAME = "NameUser";
+	private static final String USERNAME = "NameUser";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +31,10 @@ public class CreateTI extends Activity {
 		setContentView(R.layout.activity_create_ti);
 
 		Bundle bunble = getIntent().getExtras();
-		userName = bunble.getString(USER_NAME);
+		userName = bunble.getString(USERNAME);
 		priority = 2;
 		// Tirar essa conexão com o BD Local
 		currentUser = User.getInstance();
-
 
 		hours = (NumberPicker) findViewById(R.id.hours);
 		hours.setMaxValue(167);
@@ -68,14 +67,14 @@ public class CreateTI extends Activity {
 						R.string.register_ok, Toast.LENGTH_SHORT);
 				toast.show();
 
-				my_activity_ti = new ActivityTI(name.getText().toString(),
+				myMi = new ActivityTI(name.getText().toString(),
 						hours.getValue(), minutes.getValue(), priority);
 
 				currentUser.isActualWeek();
-				currentUser.getWeekAtual().addTI(my_activity_ti);
+				currentUser.getWeekAtual().addTI(myMi);
 
 				Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
-				i.putExtra(USER_NAME, userName);
+				i.putExtra(USERNAME, userName);
 				finish();
 				startActivity(i);
 
@@ -88,7 +87,7 @@ public class CreateTI extends Activity {
 			public void onClick(View v) {
 
 				Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
-				i.putExtra(USER_NAME, userName);
+				i.putExtra(USERNAME, userName);
 				finish();
 				startActivity(i);
 			}
@@ -101,27 +100,29 @@ public class CreateTI extends Activity {
 	@Override
 	public final void onBackPressed() {
 		Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
-		i.putExtra(USER_NAME, userName);
+		i.putExtra(USERNAME, userName);
 		finish();
 		startActivity(i);
 	}
 
 	public void onRadioButtonClicked(View view) {
 		boolean checked = ((RadioButton) view).isChecked();
-		switch (view.getId()) {
-		case R.id.hiPriority:
-			if (checked)
+		if (checked) {
+			switch (view.getId()) {
+			case R.id.hiPriority:
 				priority = 2;
-			break;
-		case R.id.mediumPriority:
-			if (checked)
+				break;
+			case R.id.mediumPriority:
 				priority = 1;
 
-			break;
-		case R.id.lowPriority:
-			if (checked)
+				break;
+			case R.id.lowPriority:
 				priority = 0;
-			break;
+				break;
+			default:
+				priority = 0;
+				break;
+			}
 		}
 	}
 

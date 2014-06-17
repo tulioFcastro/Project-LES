@@ -12,11 +12,8 @@ public class ActivityTI implements Comparable<ActivityTI> {
 	 * 
 	 * @param name
 	 *            - The name of this Activity
-<<<<<<< HEAD
 	 * @param priority 
-=======
 	 * @param priority2 
->>>>>>> a788a7beafd9216a9baacb95b160530c441d9cd1
 	 * @param time
 	 *            - The time spent on this Activity
 	 */
@@ -49,24 +46,22 @@ public class ActivityTI implements Comparable<ActivityTI> {
 	 */
 	@Override
 	public boolean equals(Object obj) {
+		boolean isEqual = true;
 		if (this == obj) {
-			return true;
+			isEqual= true;
 		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
+		if (obj == null || getClass() != obj.getClass()) {
+			isEqual= false;
 		}
 		ActivityTI other = (ActivityTI) obj;
 		if (name == null) {
 			if (other.name != null) {
-				return false;
+				isEqual= false;
 			}
 		} else if (!name.equals(other.name)) {
-			return false;
+			isEqual= false;
 		}
-		return true;
+		return isEqual;
 	}
 
 	/**
@@ -117,8 +112,9 @@ public class ActivityTI implements Comparable<ActivityTI> {
 			return "Medium";
 		case 0:
 			return "Low";
+		default:
+			return "";
 		}
-		return "";
 	}
 
 	/**

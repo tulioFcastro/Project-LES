@@ -1,8 +1,4 @@
-
 package com.br.les.activities;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -33,208 +29,210 @@ import com.google.gson.Gson;
 
 public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 
-    private ViewPager viewPager;
-    private TabsPagerAdapter mAdapter;
-    private ActionBar actionBar;
+	private ViewPager viewPager;
+	private TabsPagerAdapter mAdapter;
+	private ActionBar actionBar;
 
-    // Tab titles
-    private final String[] tabs = {
-            "Current", "Last", "Before last"
-    };
-    private String userName;
-    private User currentUser;
-    private String json;
+	// Tab titles
+	private static final String[] TABS = { "Current", "Last", "Before last" };
+	private String userName;
+	private User currentUser;
+	private String json;
 
-    @SuppressLint("NewApi")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weekly_monitoring);
+	@SuppressLint("NewApi")
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_weekly_monitoring);
 
-        if (!this.isConnected()) {
-            dialogError(R.string.connection_error, R.string.try_again_connection);
-        } else {
-            String possibleEmail = "";
-            try {
-                Account[] accounts = AccountManager.get(this)
-                        .getAccountsByType("com.google");
+		if (!this.isConnected()) {
+			dialogError(R.string.connection_error,
+					R.string.try_again_connection);
+		} else {
+			String possibleEmail = "";
+			try {
+				Account[] accounts = AccountManager.get(this)
+						.getAccountsByType("com.google");
 
-                if (accounts.length > 0) {
-                    possibleEmail += accounts[0].name;
-                }
-            } catch (Exception e) {
-                Log.i("Exception", "Exception:" + e);
-            }
+				if (accounts.length > 0) {
+					possibleEmail += accounts[0].name;
+				}
+			} catch (Exception e) {
+				Log.i("Exception", "Exception:" + e);
+			}
 
-            HttpURLConnectionExample con = new HttpURLConnectionExample();
+			HttpURLConnectionExample con = new HttpURLConnectionExample();
 
-            // No Google account logged
-            if (possibleEmail.equals("")) {
-                dialogError(R.string.user_login_error, R.string.try_again_user_login);
-            } else {
-                try {
-                    this.json = con.requestJson(possibleEmail);
+			// No Google account logged
+			String empty = "";
+			if (possibleEmail.equals(empty)) {
+				dialogError(R.string.user_login_error,
+						R.string.try_again_user_login);
+			} else {
+				try {
+					this.json = con.requestJson(possibleEmail);
 
-                    Gson gson = new Gson();
-                    if (this.json != null && this.json.equals("User not found")) {
-                        this.currentUser = new User(possibleEmail, possibleEmail);
-                        String userJson = gson.toJson(this.currentUser);
-                        // Falta enviar pro servidor...
+					Gson gson = new Gson();
+					String erro = "User not found";
+					if (this.json != null && this.json.equals(erro)) {
+						this.currentUser = new User(possibleEmail,
+								possibleEmail);
+						String userJson = gson.toJson(this.currentUser);
+						// Falta enviar pro servidor...
 
-                    } else if (this.json == null) {
-                        dialogError(R.string.request_error, R.string.request_error_dialog);
-                    }
-                    else {
-                        this.currentUser = gson.fromJson(this.json, User.class);
-                    }
+					} else if (this.json == null) {
+						dialogError(R.string.request_error,
+								R.string.request_error_dialog);
+					} else {
+						this.currentUser = gson.fromJson(this.json, User.class);
+					}
 
-                } catch (Exception e) {
-                    Log.i("Exception", "Exception:" + e);
-                }
+				} catch (Exception e) {
+					Log.i("Exception", "Exception:" + e);
+				}
 
-                // Initilization
-                viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
-                actionBar = getActionBar();
-                mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+				// Initilization
+				viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
+				actionBar = getActionBar();
+				mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
-                viewPager.setAdapter(mAdapter);
-                actionBar.setHomeButtonEnabled(false);
-                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+				viewPager.setAdapter(mAdapter);
+				actionBar.setHomeButtonEnabled(false);
+				actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-                // Adding Tabs
-                for (String tab_name : tabs) {
-                    actionBar.addTab(actionBar.newTab().setText(tab_name)
-                            .setTabListener(this));
-                }
+				// Adding Tabs
+				for (String tabName : TABS) {
+					actionBar.addTab(actionBar.newTab().setText(tabName)
+							.setTabListener(this));
+				}
 
-                /**
-                 * on swiping the viewpager make respective tab selected
-                 */
-                viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+				/**
+				 * on swiping the viewpager make respective tab selected
+				 */
+				viewPager
+						.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-                    @Override
-                    public void onPageSelected(int position) {
-                        // on changing the page
-                        // make respected tab selected
-                        actionBar.setSelectedNavigationItem(position);
-                    }
+							@Override
+							public void onPageSelected(int position) {
+								actionBar.setSelectedNavigationItem(position);
+							}
 
-                    @Override
-                    public void onPageScrolled(int arg0, float arg1, int arg2) {
-                    }
+							@Override
+							public void onPageScrolled(int arg0, float arg1,
+									int arg2) {
+								// TODO
+							}
 
-                    @Override
-                    public void onPageScrollStateChanged(int arg0) {
-                    }
+							@Override
+							public void onPageScrollStateChanged(int arg0) {
+								// TODO
+							}
+						});
 
-                });
+				Button addTI = (Button) findViewById(R.id.createTI);
+				addTI.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent i = new Intent(WeeklyMonitoring.this,
+								CreateTI.class);
+						i.putExtra("NameUser", userName);
+						finish();
+						startActivity(i);
+					}
 
-                Button addTI = (Button) findViewById(R.id.createTI);
-                addTI.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(WeeklyMonitoring.this, CreateTI.class);
-                        i.putExtra("NameUser", userName);
-                        finish();
-                        startActivity(i);
-                    }
+				});
 
-                });
+			}
 
-            }
+		}
 
-        }
+	}
 
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.ti_main, menu);
+		return true;
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.ti_main, menu);
-        return true;
-    }
+	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 
-    @Override
-    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		// TODO
+		/*
+		 * if (mViewPager != null) {
+		 * mViewPager.setCurrentItem(tab.getPosition()); }
+		 */
 
-        /*
-         * if (mViewPager != null) {
-         * mViewPager.setCurrentItem(tab.getPosition()); }
-         */
+	}
 
-    }
+	@Override
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 
-    @Override
-    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
 
-        // TODO Auto-generated method stub
+	}
 
-    }
+	@Override
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 
-    @Override
-    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+	}
 
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public void setUserName(String jogador) {
+		this.userName = jogador;
+	}
 
-    public void setUserName(String jogador) {
-        this.userName = jogador;
-    }
+	// Aqui vai ser o dialog para quando n�o estiver logado com Gmail
+	/**
+	 * If back button pressed, finalize Activity.
+	 */
+	@Override
+	public final void onBackPressed() {
+		new AlertDialog.Builder(this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle(R.string.quit_search)
+				.setPositiveButton(R.string.yes,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(final DialogInterface dialog,
+									final int which) {
+								finish();
+							}
+						}).setNegativeButton(R.string.no, null).show();
+	}
 
-    // Aqui vai ser o dialog para quando n�o estiver logado com Gmail
-    /**
-     * If back button pressed, finalize Activity.
-     */
-    @Override
-    public final void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(R.string.quit_search)
-                .setPositiveButton(R.string.yes,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(final DialogInterface dialog,
-                                    final int which) {
-                                finish();
-                            }
-                        }).setNegativeButton(R.string.no, null).show();
-    }
+	/**
+	 * If some error, creates dialog for the user
+	 */
+	public final void dialogError(int title, int message) {
+		new AlertDialog.Builder(this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle(title)
+				.setMessage(message)
+				.setPositiveButton(R.string.exit,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(final DialogInterface dialog,
+									final int which) {
+								finish();
+							}
+						}).show().setCancelable(false);
 
-    /**
-     * If some error, creates dialog for the user
-     */
-    public final void dialogError(int title, int message) {
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(R.string.exit,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(final DialogInterface dialog,
-                                    final int which) {
-                                finish();
-                            }
-                        }).show().setCancelable(false);
+	}
 
-    }
-
-    /**
-     * Check internet connection
-     * 
-     * @return the connection
-     */
-    public boolean isConnected() {
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if ((networkInfo != null) && networkInfo.isConnected()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+	/**
+	 * Check internet connection
+	 * 
+	 * @return the connection
+	 */
+	public boolean isConnected() {
+		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+		return (networkInfo != null) && networkInfo.isConnected();
+	}
 
 }
