@@ -10,6 +10,13 @@ public class User {
 
 	private static User instance = null;
 
+	public static User getInstance() {
+		if (instance == null) {
+			instance = new User();
+		}
+		return instance;
+	}
+
 	/**
 	 * Default Creator of a new User
 	 */
@@ -27,16 +34,10 @@ public class User {
 	 *            - The email for this User, it has to be unique
 	 */
 	public User(String name, String email) {
+
 		this.name = name;
 		this.email = email;
 		initializeWeeks();
-	}
-
-	public static User getInstance() {
-		if (instance == null) {
-			instance = new User();
-		}
-		return instance;
 	}
 
 	/**
@@ -140,7 +141,7 @@ public class User {
 	 */
 	public void isActualWeek() {
 		if (this.weeks[2].getWeekOfYear() != Calendar.WEEK_OF_YEAR) {
-			Week[] temp = new Week[3];
+			Week temp[] = new Week[3];
 			System.arraycopy(this.weeks, 0, temp, 0, 3);
 
 			this.weeks[0] = temp[1];

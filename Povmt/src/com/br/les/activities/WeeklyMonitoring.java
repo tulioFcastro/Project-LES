@@ -37,7 +37,6 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 
 	// Tab titles
 	private final String[] tabs = { "Current", "Last", "Before last" };
-	private String userName;
 	private User currentUser;
 	private String json;
 
@@ -97,10 +96,6 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 						} else {
 							this.currentUser = gson.fromJson(this.json,
 									User.class);
-
-							System.out.println("####TIS: "
-									+ currentUser.getFirstWeek());
-							System.out.println("#####JSONSERVER: " + json);
 						}
 
 					} catch (Exception e) {
@@ -109,45 +104,8 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 				}
 			}
 
-			System.out.println("####CURRENTUSER: " + currentUser);
-			// Initilization
-			viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
-			actionBar = getActionBar();
-			mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-
-			viewPager.setAdapter(mAdapter);
-			actionBar.setHomeButtonEnabled(false);
-			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-			// Adding Tabs
-			for (String tab_name : tabs) {
-				actionBar.addTab(actionBar.newTab().setText(tab_name)
-						.setTabListener(this));
-			}
-
-			/**
-			 * on swiping the viewpager make respective tab selected
-			 */
-			viewPager
-					.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-						@Override
-						public void onPageSelected(int position) {
-							// on changing the page
-							// make respected tab selected
-							actionBar.setSelectedNavigationItem(position);
-						}
-
-						@Override
-						public void onPageScrolled(int arg0, float arg1,
-								int arg2) {
-						}
-
-						@Override
-						public void onPageScrollStateChanged(int arg0) {
-						}
-
-					});
+			// Iniciando toda a view
+			InitiatingView();
 
 			Button addTI = (Button) findViewById(R.id.createTI);
 			addTI.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +120,47 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 			});
 		}
 
+	}
+
+	@SuppressLint("NewApi")
+	private void InitiatingView() {
+		System.out.println("####CURRENTUSER: " + currentUser);
+		// Initilization
+		viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
+		actionBar = getActionBar();
+		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+
+		viewPager.setAdapter(mAdapter);
+		actionBar.setHomeButtonEnabled(false);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		// Adding Tabs
+		for (String tab_name : tabs) {
+			actionBar.addTab(actionBar.newTab().setText(tab_name)
+					.setTabListener(this));
+		}
+
+		/**
+		 * on swiping the viewpager make respective tab selected
+		 */
+		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int position) {
+				// on changing the page
+				// make respected tab selected
+				actionBar.setSelectedNavigationItem(position);
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+			}
+
+		});
 	}
 
 	@Override
@@ -193,15 +192,6 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String jogador) {
-		this.userName = jogador;
-	}
-
-	// Aqui vai ser o dialog para quando n�o estiver logado com Gmail
 	/**
 	 * If back button pressed, finalize Activity.
 	 */
