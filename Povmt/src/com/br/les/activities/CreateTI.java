@@ -13,28 +13,30 @@ import android.widget.Toast;
 import com.br.les.povmt.R;
 import com.br.les.timeitup.ActivityTI;
 import com.br.les.timeitup.User;
+import com.br.les.util.HttpURLConnectionPOST;
+import com.google.gson.Gson;
 
 public class CreateTI extends Activity {
 
-	private ActivityTI myMi;
+	private ActivityTI my_activity_ti;
 	private NumberPicker hours;
 
 	private NumberPicker minutes;
 	private User currentUser;
-	private String userName;
+	private String jsonUser;
 	private int priority;
-	private static final String USERNAME = "NameUser";
+	private final String JSON_USER = "JsonUser";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_ti);
 
-		Bundle bunble = getIntent().getExtras();
-		userName = bunble.getString(USERNAME);
-		priority = 2;
-		// Tirar essa conexão com o BD Local
-		currentUser = User.getInstance();
+		Bundle bundle = getIntent().getExtras();
+		jsonUser = bundle.getString(JSON_USER);
+		final Gson gson = new Gson();
+		this.currentUser = gson.fromJson(jsonUser, User.class);
+		System.out.println("####USUARIO: " + this.currentUser);
 
 		hours = (NumberPicker) findViewById(R.id.hours);
 		hours.setMaxValue(167);
@@ -67,14 +69,19 @@ public class CreateTI extends Activity {
 						R.string.register_ok, Toast.LENGTH_SHORT);
 				toast.show();
 
-				myMi = new ActivityTI(name.getText().toString(),
+				my_activity_ti = new ActivityTI(name.getText().toString(),
 						hours.getValue(), minutes.getValue(), priority);
 
 				currentUser.isActualWeek();
-				currentUser.getWeekAtual().addTI(myMi);
+				currentUser.getFirstWeek().addTI(my_activity_ti);
+				
+				String userJson = gson.toJson(currentUser);
 
+				HttpURLConnectionPOST connPOST = new HttpURLConnectionPOST();
+				connPOST.execute(userJson, currentUser.getEmail());
+				
 				Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
-				i.putExtra(USERNAME, userName);
+				i.putExtra(JSON_USER, userJson);
 				finish();
 				startActivity(i);
 
@@ -87,7 +94,7 @@ public class CreateTI extends Activity {
 			public void onClick(View v) {
 
 				Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
-				i.putExtra(USERNAME, userName);
+				i.putExtra(JSON_USER, jsonUser);
 				finish();
 				startActivity(i);
 			}
@@ -100,29 +107,27 @@ public class CreateTI extends Activity {
 	@Override
 	public final void onBackPressed() {
 		Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
-		i.putExtra(USERNAME, userName);
+		i.putExtra(JSON_USER, jsonUser);
 		finish();
 		startActivity(i);
 	}
 
 	public void onRadioButtonClicked(View view) {
 		boolean checked = ((RadioButton) view).isChecked();
-		if (checked) {
-			switch (view.getId()) {
-			case R.id.hiPriority:
+		switch (view.getId()) {
+		case R.id.hiPriority:
+			if (checked)
 				priority = 2;
-				break;
-			case R.id.mediumPriority:
+			break;
+		case R.id.mediumPriority:
+			if (checked)
 				priority = 1;
 
-				break;
-			case R.id.lowPriority:
+			break;
+		case R.id.lowPriority:
+			if (checked)
 				priority = 0;
-				break;
-			default:
-				priority = 0;
-				break;
-			}
+			break;
 		}
 	}
 

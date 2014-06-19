@@ -24,17 +24,19 @@ import android.widget.Button;
 import com.br.les.povmt.R;
 import com.br.les.report.TabsPagerAdapter;
 import com.br.les.timeitup.User;
-import com.br.les.util.HttpURLConnectionExample;
+import com.br.les.util.HttpURLConnectionGET;
+import com.br.les.util.HttpURLConnectionPOST;
 import com.google.gson.Gson;
 
 public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 
+	private final String JSON_USER = "JsonUser";
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
 
 	// Tab titles
-	private static final String[] TABS = { "Current", "Last", "Before last" };
+	private final String[] tabs = { "Current", "Last", "Before last" };
 	private String userName;
 	private User currentUser;
 	private String json;
@@ -49,101 +51,115 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 			dialogError(R.string.connection_error,
 					R.string.try_again_connection);
 		} else {
-			String possibleEmail = "";
-			try {
-				Account[] accounts = AccountManager.get(this)
-						.getAccountsByType("com.google");
 
-				if (accounts.length > 0) {
-					possibleEmail += accounts[0].name;
-				}
-			} catch (Exception e) {
-				Log.i("Exception", "Exception:" + e);
-			}
-
-			HttpURLConnectionExample con = new HttpURLConnectionExample();
-
-			// No Google account logged
-			String empty = "";
-			if (possibleEmail.equals(empty)) {
-				dialogError(R.string.user_login_error,
-						R.string.try_again_user_login);
+			Bundle bundle = getIntent().getExtras();
+			System.out.println("####JSONUSER: " + bundle);
+			if (bundle != null) {
+				json = bundle.getString(JSON_USER);
+				System.out.println("####JSONUSER: " + json);
+				Gson gson = new Gson();
+				this.currentUser = gson.fromJson(json, User.class);
 			} else {
+				String possibleEmail = "";
 				try {
-					this.json = con.requestJson(possibleEmail);
+					Account[] accounts = AccountManager.get(this)
+							.getAccountsByType("com.google");
 
-					Gson gson = new Gson();
-					String erro = "User not found";
-					if (this.json != null && this.json.equals(erro)) {
-						this.currentUser = new User(possibleEmail,
-								possibleEmail);
-						String userJson = gson.toJson(this.currentUser);
-						// Falta enviar pro servidor...
-
-					} else if (this.json == null) {
-						dialogError(R.string.request_error,
-								R.string.request_error_dialog);
-					} else {
-						this.currentUser = gson.fromJson(this.json, User.class);
+					if (accounts.length > 0) {
+						possibleEmail += accounts[0].name;
 					}
-
 				} catch (Exception e) {
 					Log.i("Exception", "Exception:" + e);
 				}
 
-				// Initilization
-				viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
-				actionBar = getActionBar();
-				mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+				HttpURLConnectionGET connGET = new HttpURLConnectionGET();
+				HttpURLConnectionPOST connPOST = new HttpURLConnectionPOST();
+				// No Google account logged
+				if (possibleEmail.equals("")) {
+					dialogError(R.string.user_login_error,
+							R.string.try_again_user_login);
+				} else {
+					try {
+						this.json = connGET.requestJson(possibleEmail);
 
-				viewPager.setAdapter(mAdapter);
-				actionBar.setHomeButtonEnabled(false);
-				actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+						Gson gson = new Gson();
+						if (this.json != null
+								&& this.json.equals("User not found")) {
+							this.currentUser = new User(possibleEmail,
+									possibleEmail);
+							String userJson = gson.toJson(this.currentUser);
+							// Falta enviar pro servidor...
+							connPOST.execute(userJson, possibleEmail);
 
-				// Adding Tabs
-				for (String tabName : TABS) {
-					actionBar.addTab(actionBar.newTab().setText(tabName)
-							.setTabListener(this));
-				}
+						} else if (this.json == null) {
+							dialogError(R.string.request_error,
+									R.string.request_error_dialog);
+						} else {
+							this.currentUser = gson.fromJson(this.json,
+									User.class);
 
-				/**
-				 * on swiping the viewpager make respective tab selected
-				 */
-				viewPager
-						.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+							System.out.println("####TIS: "
+									+ currentUser.getFirstWeek());
+							System.out.println("#####JSONSERVER: " + json);
+						}
 
-							@Override
-							public void onPageSelected(int position) {
-								actionBar.setSelectedNavigationItem(position);
-							}
-
-							@Override
-							public void onPageScrolled(int arg0, float arg1,
-									int arg2) {
-								// TODO
-							}
-
-							@Override
-							public void onPageScrollStateChanged(int arg0) {
-								// TODO
-							}
-						});
-
-				Button addTI = (Button) findViewById(R.id.createTI);
-				addTI.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent i = new Intent(WeeklyMonitoring.this,
-								CreateTI.class);
-						i.putExtra("NameUser", userName);
-						finish();
-						startActivity(i);
+					} catch (Exception e) {
+						Log.i("Exception", "Exception:" + e);
 					}
-
-				});
-
+				}
 			}
 
+			System.out.println("####CURRENTUSER: " + currentUser);
+			// Initilization
+			viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
+			actionBar = getActionBar();
+			mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+
+			viewPager.setAdapter(mAdapter);
+			actionBar.setHomeButtonEnabled(false);
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+			// Adding Tabs
+			for (String tab_name : tabs) {
+				actionBar.addTab(actionBar.newTab().setText(tab_name)
+						.setTabListener(this));
+			}
+
+			/**
+			 * on swiping the viewpager make respective tab selected
+			 */
+			viewPager
+					.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+						@Override
+						public void onPageSelected(int position) {
+							// on changing the page
+							// make respected tab selected
+							actionBar.setSelectedNavigationItem(position);
+						}
+
+						@Override
+						public void onPageScrolled(int arg0, float arg1,
+								int arg2) {
+						}
+
+						@Override
+						public void onPageScrollStateChanged(int arg0) {
+						}
+
+					});
+
+			Button addTI = (Button) findViewById(R.id.createTI);
+			addTI.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(WeeklyMonitoring.this, CreateTI.class);
+					i.putExtra(JSON_USER, json);
+					finish();
+					startActivity(i);
+				}
+
+			});
 		}
 
 	}
@@ -158,7 +174,6 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 
-		// TODO
 		/*
 		 * if (mViewPager != null) {
 		 * mViewPager.setCurrentItem(tab.getPosition()); }
@@ -232,7 +247,15 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 	public boolean isConnected() {
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-		return (networkInfo != null) && networkInfo.isConnected();
+		if ((networkInfo != null) && networkInfo.isConnected()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
+	public String getJson() {
+		return this.json;
+
+	}
 }

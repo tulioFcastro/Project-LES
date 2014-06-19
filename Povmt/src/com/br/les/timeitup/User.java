@@ -128,7 +128,7 @@ public class User {
 	 * 
 	 * @return The actual week
 	 */
-	public Week getWeekAtual() {
+	public Week getFirstWeek() {
 
 		return weeks[2];
 	}

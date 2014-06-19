@@ -11,12 +11,13 @@ import android.widget.ListView;
 import com.br.les.activities.WeeklyMonitoring;
 import com.br.les.povmt.R;
 import com.br.les.timeitup.User;
+import com.google.gson.Gson;
 
 public class ThirdWeek extends Fragment {
 
 	private ListView listView;
-	private String userName;
 	private User currentUser;
+	private String json;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,9 +25,9 @@ public class ThirdWeek extends Fragment {
 
 		View rootView = inflater.inflate(R.layout.third_week, container, false);
 
-
-		this.userName = ((WeeklyMonitoring) getActivity()).getUserName();
-		this.currentUser = User.getInstance();
+		this.json = ((WeeklyMonitoring) getActivity()).getJson();
+		Gson gson = new Gson();
+		this.currentUser = gson.fromJson(json, User.class);
 
 		// Get ListView object from xml
 		listView = (ListView) rootView.findViewById(R.id.listViewWeek3);

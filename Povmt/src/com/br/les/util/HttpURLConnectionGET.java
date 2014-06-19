@@ -17,32 +17,28 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.os.AsyncTask;
 
-public class HttpURLConnectionExample extends AsyncTask<String, Void, String> {
+import com.br.les.timeitup.User;
 
-	private final String USER_AGENT = "Mozilla/5.0";
+public class HttpURLConnectionGET extends AsyncTask<String, Void, String> {
 
 	public String requestJson(String mail) {
 		try {
-			return new HttpURLConnectionExample().execute(mail).get();
+			return new HttpURLConnectionGET().execute(mail).get();
 		} catch (Exception ex) {
 			return null;
 		}
-
 	}
 
-	public void sendPostJson() {// String json, String mail){
+	public void sendPostJson(User user) {// String json, String mail){
 		try {
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpPost post = new HttpPost("http://localhost:8080/put_user");
 
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair("data", "mail"));
-			pairs.add(new BasicNameValuePair("mail", "reh.nally@gmail.com"));
+			pairs.add(new BasicNameValuePair("mail", user.getEmail()));
 			pairs.add(new BasicNameValuePair("id", "3"));
 			post.setEntity(new UrlEncodedFormEntity(pairs));
-
-			// post.setHeader("Accept", "Application/json");
-			// post.setHeader("Content-type", "application/json");
 
 			HttpResponse response = httpClient.execute(post);
 		} catch (Exception e) {
@@ -50,38 +46,6 @@ public class HttpURLConnectionExample extends AsyncTask<String, Void, String> {
 		}
 
 	}
-
-	/**
-	 * // HTTP POST request private void sendPost() throws Exception {
-	 * 
-	 * 
-	 * 
-	 * //add reuqest header con.setRequestMethod("POST");
-	 * con.setRequestProperty("User-Agent", USER_AGENT);
-	 * con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-	 * 
-	 * String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
-	 * 
-	 * // Send post request con.setDoOutput(true); DataOutputStream wr = new
-	 * DataOutputStream(con.getOutputStream()); wr.writeBytes(urlParameters);
-	 * wr.flush(); wr.close();
-	 * 
-	 * int responseCode = con.getResponseCode();
-	 * System.out.println("\nSending 'POST' request to URL : " + url);
-	 * System.out.println("Post parameters : " + urlParameters);
-	 * System.out.println("Response Code : " + responseCode);
-	 * 
-	 * BufferedReader in = new BufferedReader( new
-	 * InputStreamReader(con.getInputStream())); String inputLine; StringBuffer
-	 * response = new StringBuffer();
-	 * 
-	 * while ((inputLine = in.readLine()) != null) { response.append(inputLine);
-	 * } in.close();
-	 * 
-	 * //print result System.out.println(response.toString());
-	 * 
-	 * }
-	 **/
 
 	@Override
 	protected String doInBackground(String... params) {
