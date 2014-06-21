@@ -12,6 +12,8 @@
     <uses-permission android:name="com.example.library.permission.REST_PERMISSION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SERVICE" />
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -22,20 +24,6 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name="com.br.les.activities.TIActivity"
-            android:label="@string/title_activity_ti" >
-        </activity>
-        <activity
-            android:name="com.br.les.activities.ListTiActivity"
-            android:label="@string/title_activity_list_ti"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.br.les.activities.Time_it_Up_main"
-            android:label="@string/title_activity_time_it__up_main"
-            android:screenOrientation="portrait" >
-        </activity>
         <activity
             android:name="com.br.les.activities.CreateTI"
             android:label="@string/title_activity_create_ti"
@@ -50,6 +38,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <receiver android:name="com.br.les.povmt.MyBroadcastReceiver" android:process=":remote" >
+        </receiver>
+
+        <activity
+            android:name="com.br.les.activities.Alarm"
+            android:label="@string/title_activity_alarm" >
         </activity>
     </application>
 

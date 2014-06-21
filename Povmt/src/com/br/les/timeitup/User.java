@@ -7,6 +7,7 @@ public class User {
 	private long id;
 	private String name;
 	private String email;
+	private int lastDayOfTI;
 
 	private static User instance = null;
 
@@ -172,6 +173,11 @@ public class User {
 	public Week getThirdWeek() {
 
 		return weeks[0];
+	}
+
+	public int getlastDayWithTI() {
+		
+		return weeks[2].getLastDayWithTI();
 	}
 
 }

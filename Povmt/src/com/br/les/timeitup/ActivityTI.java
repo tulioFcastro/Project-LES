@@ -1,11 +1,15 @@
 package com.br.les.timeitup;
 
+import java.util.Calendar;
+
 public class ActivityTI implements Comparable<ActivityTI> {
 
 	private String name;
 	private int hour;
 	private int minute;
 	private int priority;
+	private int mDayOfYear;
+	final Calendar c = Calendar.getInstance();
 
 	/**
 	 * Creator for a new ActivityTI
@@ -22,6 +26,7 @@ public class ActivityTI implements Comparable<ActivityTI> {
 		this.hour = hour;
 		this.minute = minute;
 		this.priority = priority;
+		this.mDayOfYear = c.get(Calendar.DAY_OF_YEAR);
 	}
 
 	/**
@@ -169,5 +174,10 @@ public class ActivityTI implements Comparable<ActivityTI> {
 
 	public float getTime() {
 		return (this.getHour() * 60) + this.getMinute();
+	}
+
+	public int getDayOfTI() {
+		
+		return mDayOfYear;
 	}
 }

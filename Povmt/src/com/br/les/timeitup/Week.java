@@ -179,4 +179,12 @@ public class Week {
 		tiListLow.clear();
 	}
 
+	public int getLastDayWithTI() {
+		int maior = 0;
+		for (ActivityTI actTI : tiList) {
+			if(actTI.getDayOfTI() > maior)maior = actTI.getDayOfTI();
+		}
+		return maior;
+	}
+
 }
