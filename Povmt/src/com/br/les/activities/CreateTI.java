@@ -28,7 +28,7 @@ public class CreateTI extends Activity {
 	private NumberPicker minutes;
 	private User currentUser;
 	private String jsonUser;
-	private int priority;
+	private int priority = 2; // valor inicial, caso não seja mudado deve ficar como 2.
 	private final String JSON_USER = "JsonUser";
 
 	@Override
@@ -41,7 +41,7 @@ public class CreateTI extends Activity {
 		final Gson gson = new Gson();
 		this.currentUser = gson.fromJson(jsonUser, User.class);
 		System.out.println("####USUARIO: " + this.currentUser);
-
+		
 		hours = (NumberPicker) findViewById(R.id.hours);
 		hours.setMaxValue(167);
 		hours.setMinValue(0);

@@ -91,17 +91,17 @@ public class Week {
 		} else {
 			ordenateLevels();
 			out = new String[tiList.size() + 1];
-			
-			for (int i = 0; i < out.length-1; i++) {
+
+			for (int i = 0; i < out.length - 1; i++) {
 				out[i] = tiList.get(i).toString();
 				DecimalFormat df = new DecimalFormat("0.00");
 
-				out[i] += " - "
-						+ df.format(proportion(tiList.get(i))) + "%";
-				
+				out[i] += " - " + df.format(proportion(tiList.get(i))) + "%";
+
 			}
-			
-			out[out.length-1] = "High: "+weekHigh() +"Med " + weekMed() +"Low: "+ weekLow();	
+
+			out[out.length - 1] = "High : " + weekHigh() + " - Medium : " + weekMed()
+					+ " - Low : " + weekLow();
 		}
 
 		return out;
@@ -111,7 +111,7 @@ public class Week {
 	private String weekLow() {
 		int out = 0;
 		for (ActivityTI actTi : tiListLow) {
-			out+=actTi.getHour();
+			out += actTi.getHour();
 		}
 		return String.valueOf(out);
 	}
@@ -119,7 +119,7 @@ public class Week {
 	private String weekMed() {
 		int out = 0;
 		for (ActivityTI actTi : tiListMedium) {
-			out+=actTi.getHour();
+			out += actTi.getHour();
 		}
 		return String.valueOf(out);
 	}
@@ -127,7 +127,7 @@ public class Week {
 	private String weekHigh() {
 		int out = 0;
 		for (ActivityTI actTi : tiListHigh) {
-			out+=actTi.getHour();
+			out += actTi.getHour();
 		}
 		return String.valueOf(out);
 	}
@@ -151,38 +151,36 @@ public class Week {
 	public String toString() {
 		return tiList.toString();
 	}
-	
-	private void ordenateLevels(){
+
+	private void ordenateLevels() {
 		String high = "High";
 		String medium = "Medium";
 		for (ActivityTI actTi : tiList) {
-			if(actTi.getPriority().equals(high)){
+			if (actTi.getPriority().equals(high)) {
 				tiListHigh.add(actTi);
-			}else if (actTi.getPriority().equals(medium)){
+			} else if (actTi.getPriority().equals(medium)) {
 				tiListMedium.add(actTi);
-			}else{
+			} else {
 				tiListLow.add(actTi);
 			}
 		}
-		
+
 		Collections.sort(tiListHigh);
 		Collections.sort(tiListMedium);
 		Collections.sort(tiListLow);
-		
+
 		tiList.clear();
 		tiList.addAll(tiListHigh);
 		tiList.addAll(tiListMedium);
 		tiList.addAll(tiListLow);
-		
-		tiListHigh.clear();
-		tiListMedium.clear();
-		tiListLow.clear();
+
 	}
 
 	public int getLastDayWithTI() {
 		int maior = 0;
 		for (ActivityTI actTI : tiList) {
-			if(actTI.getDayOfTI() > maior)maior = actTI.getDayOfTI();
+			if (actTI.getDayOfTI() > maior)
+				maior = actTI.getDayOfTI();
 		}
 		return maior;
 	}
