@@ -13,6 +13,8 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -43,6 +45,8 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
     private int mDayOfLastTI;
+    TimePickerDialog timePickerDialog;
+    final static int RQS_1 = 1;
 
     // Tab titles
     private final String[] tabs = {
@@ -273,39 +277,29 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
             case R.id.action_setAlarm:
                 // setar o novo alarme
                 Toast.makeText(WeeklyMonitoring.this, "setando alarme", Toast.LENGTH_SHORT).show();
-                // Process to get Current Time
-                final Calendar c = Calendar.getInstance();
-                mHour = c.get(Calendar.HOUR_OF_DAY);
-                mMinute = c.get(Calendar.MINUTE);
-
-                // Launch Time Picker Dialog
-                TimePickerDialog tpd = new TimePickerDialog(this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay,
-                                    int minute) {
-                                Intent intent = new Intent(WeeklyMonitoring.this,
-                                        MyBroadcastReceiver.class);
-                                intent.putExtra("lastdaywithTI", mDayOfLastTI);
-
-                                c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                                c.set(Calendar.MINUTE, minute);
-                                c.set(Calendar.SECOND, 00);
-                                long when = c.getTimeInMillis();
-
-                                // TODO
-                                // fazer conta para fazer o alarmes
-
-                                PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                                        getApplicationContext(),
-                                        234324243, intent, 0);
-                                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, when, 20000,
-                                        pendingIntent);
-                                System.out.println("XX Alarm set in " + hourOfDay + " : " + minute);
-                            }
-                        }, mHour, mMinute, false);
-                tpd.show();
+                /*
+                 * // Process to get Current Time final Calendar c =
+                 * Calendar.getInstance(); mHour = c.get(Calendar.HOUR_OF_DAY);
+                 * mMinute = c.get(Calendar.MINUTE); // Launch Time Picker
+                 * Dialog TimePickerDialog tpd = new TimePickerDialog(this, new
+                 * TimePickerDialog.OnTimeSetListener() {
+                 * @Override public void onTimeSet(TimePicker view, int
+                 * hourOfDay, int minute) { Intent intent = new
+                 * Intent(WeeklyMonitoring.this, MyBroadcastReceiver.class);
+                 * intent.putExtra("lastdaywithTI", mDayOfLastTI);
+                 * c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                 * c.set(Calendar.MINUTE, minute); c.set(Calendar.SECOND, 00);
+                 * long when = c.getTimeInMillis(); // TODO // fazer conta para
+                 * fazer o alarmes PendingIntent pendingIntent =
+                 * PendingIntent.getBroadcast( getApplicationContext(),
+                 * 234324243, intent, 0); AlarmManager alarmManager =
+                 * (AlarmManager) getSystemService(ALARM_SERVICE);
+                 * alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, when,
+                 * 20000, pendingIntent); System.out.println("XX Alarm set in "
+                 * + hourOfDay + " : " + minute); } }, mHour, mMinute, false);
+                 * tpd.show();
+                 */
+                openTimePickerDialog(false);
 
                 return true;
             case R.id.action_setings:
@@ -319,4 +313,54 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
         }
 
     }
+
+    private void openTimePickerDialog(boolean is24r) {
+        Calendar calendar = Calendar.getInstance();
+
+        timePickerDialog = new TimePickerDialog(
+                WeeklyMonitoring.this,
+                onTimeSetListener,
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                is24r);
+        timePickerDialog.setTitle("Set Alarm Time");
+
+        timePickerDialog.show();
+
+    }
+
+    OnTimeSetListener onTimeSetListener = new OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+            Calendar calNow = Calendar.getInstance();
+            Calendar calSet = (Calendar) calNow.clone();
+
+            calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calSet.set(Calendar.MINUTE, minute);
+            calSet.set(Calendar.SECOND, 0);
+            calSet.set(Calendar.MILLISECOND, 0);
+
+            if (calSet.compareTo(calNow) <= 0) {
+                // Today Set time passed, count to tomorrow
+                calSet.add(Calendar.DATE, 1);
+            }
+
+            setAlarm(calSet);
+        }
+    };
+
+    private void setAlarm(Calendar targetCal) {
+
+        Intent intent = new Intent(getBaseContext(), MyBroadcastReceiver.class);
+        PendingIntent pendingIntent = PendingIntent
+                .getBroadcast(getBaseContext(), RQS_1, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
+        System.out.println("XX Alarm set in "
+                + targetCal.getTimeInMillis());
+
+    }
+
 }

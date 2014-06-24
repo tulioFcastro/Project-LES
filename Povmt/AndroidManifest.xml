@@ -45,7 +45,7 @@
             android:screenOrientation="portrait">
         </activity>
         
-        <receiver android:name="MyBroadcastReceiver" >
+        <receiver android:name="MyBroadcastReceiver" android:process=":remote" >
         </receiver>
     </application>
 
