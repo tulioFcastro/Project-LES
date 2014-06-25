@@ -100,8 +100,8 @@ public class Week {
 
 			}
 
-			out[out.length - 1] = "High : " + weekHigh() + " - Medium : " + weekMed()
-					+ " - Low : " + weekLow();
+			out[out.length - 1] = "High : " + weekHigh() + " - Medium : "
+					+ weekMed() + " - Low : " + weekLow();
 		}
 
 		return out;
@@ -109,27 +109,33 @@ public class Week {
 	}
 
 	private String weekLow() {
-		int out = 0;
-		for (ActivityTI actTi : tiListLow) {
-			out += actTi.getHour();
-		}
-		return String.valueOf(out);
+		return formatPriority(tiListLow);
 	}
 
 	private String weekMed() {
-		int out = 0;
-		for (ActivityTI actTi : tiListMedium) {
-			out += actTi.getHour();
-		}
-		return String.valueOf(out);
+		return formatPriority(tiListMedium);
 	}
 
 	private String weekHigh() {
-		int out = 0;
-		for (ActivityTI actTi : tiListHigh) {
-			out += actTi.getHour();
+		return formatPriority(tiListHigh);
+	}
+
+	private String formatPriority(List<ActivityTI> list) {
+		int hours = 0;
+		int minutes = 0;
+		for (ActivityTI actTi : list) {
+			hours += actTi.getHour();
+			minutes += actTi.getMinute();
+			if (minutes >= 60) {
+				hours++;
+				minutes -= 60;
+			}
 		}
-		return String.valueOf(out);
+		return String.valueOf(list.size() + " ("
+				+ (String.valueOf(hours).length() >= 2 ? hours : ("0" + hours))
+				+ ":"
+				+ (String.valueOf(minutes).length() >= 2 ? minutes : ("0" + minutes))
+				+ ")");
 	}
 
 	/**
@@ -170,6 +176,7 @@ public class Week {
 		Collections.sort(tiListLow);
 
 		tiList.clear();
+
 		tiList.addAll(tiListHigh);
 		tiList.addAll(tiListMedium);
 		tiList.addAll(tiListLow);

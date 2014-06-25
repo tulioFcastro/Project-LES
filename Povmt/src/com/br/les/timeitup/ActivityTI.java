@@ -16,8 +16,8 @@ public class ActivityTI implements Comparable<ActivityTI> {
 	 * 
 	 * @param name
 	 *            - The name of this Activity
-	 * @param priority 
-	 * @param priority2 
+	 * @param priority
+	 * @param priority2
 	 * @param time
 	 *            - The time spent on this Activity
 	 */
@@ -53,18 +53,18 @@ public class ActivityTI implements Comparable<ActivityTI> {
 	public boolean equals(Object obj) {
 		boolean isEqual = true;
 		if (this == obj) {
-			isEqual= true;
+			isEqual = true;
 		}
 		if (obj == null || getClass() != obj.getClass()) {
-			isEqual= false;
+			isEqual = false;
 		}
 		ActivityTI other = (ActivityTI) obj;
 		if (name == null) {
 			if (other.name != null) {
-				isEqual= false;
+				isEqual = false;
 			}
 		} else if (!name.equals(other.name)) {
-			isEqual= false;
+			isEqual = false;
 		}
 		return isEqual;
 	}
@@ -153,7 +153,15 @@ public class ActivityTI implements Comparable<ActivityTI> {
 	 */
 	@Override
 	public String toString() {
-		return " " + getName() + " - " + this.getHour() +  this.getMinute()+" - "+ getPriority();
+		return " "
+				+ getName()
+				+ " - "
+				+ (String.valueOf(this.getHour()).length() >= 2  ? this
+						.getHour() : ("0" + this.getHour()))
+				+ ":"
+				+ (String.valueOf(this.getMinute()).length() == 2 ? this
+						.getMinute() : ("0" + this.getMinute())) + " - "
+				+ getPriority();
 	}
 
 	public int getMinute() {
@@ -177,7 +185,7 @@ public class ActivityTI implements Comparable<ActivityTI> {
 	}
 
 	public int getDayOfTI() {
-		
+
 		return mDayOfYear;
 	}
 }
