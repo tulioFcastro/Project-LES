@@ -32,12 +32,12 @@ import com.google.gson.Gson;
 
 public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 
-    private final String JSON_USER = "JsonUser";
+    private static final String JSONUSER = "JsonUser";
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
     TimePickerDialog timePickerDialog;
-    final static int RQS_1 = 1;
+    final static int RQS1 = 1;
 
     // Tab titles
     private static final String[] TABS = {
@@ -60,7 +60,7 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
             Bundle bundle = getIntent().getExtras();
 
             if (bundle != null) {
-                json = bundle.getString(JSON_USER);
+                json = bundle.getString(JSONUSER);
                 Gson gson = new Gson();
                 currentUser = gson.fromJson(json, User.class);
             } else {
@@ -92,7 +92,6 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
                             currentUser = new User(possibleEmail,
                                     possibleEmail);
                             String userJson = gson.toJson(currentUser);
-                            // Falta enviar pro servidor...
                             connPOST.execute(userJson, possibleEmail);
 
                         } else if (json == null) {
@@ -108,14 +107,14 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
                     }
                 }
             }
-            InitiatingView();
+            initiatingView();
         }
 
     }
 
     @SuppressLint("NewApi")
-    private void InitiatingView() {
-//        System.out.println("####CURRENTUSER: " + currentUser);
+    private void initiatingView() {
+        // System.out.println("####CURRENTUSER: " + currentUser);
         viewPager = (ViewPager) findViewById(R.id.weekly_monitoring);
         actionBar = getActionBar();
         mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
@@ -142,7 +141,6 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2)
                     throws UnsupportedOperationException {
-
             }
 
             @Override
@@ -168,13 +166,11 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
     @Override
     public void onTabUnselected(Tab tab, FragmentTransaction ft)
             throws UnsupportedOperationException {
-
     }
 
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft)
             throws UnsupportedOperationException {
-
     }
 
     /**
@@ -224,10 +220,9 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }
-    
+
     public String getJson() {
         return json;
-
     }
 
     /**
@@ -236,20 +231,14 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.action_createTI:
+        if(item.getItemId() == R.id.action_createTI){
                 Toast.makeText(WeeklyMonitoring.this, "Create a new TI",
                         Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(WeeklyMonitoring.this, CreateTI.class);
-                i.putExtra(JSON_USER, json);
+                i.putExtra(JSONUSER, json);
                 finish();
                 startActivity(i);
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
+        } return super.onOptionsItemSelected(item);
     }
-
 }

@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HttpURLConnectionPOST extends AsyncTask<String, Void, Void> {
+    
+    private static final String HEADERVALUE = "application/json";
 
     public final void sendPostJson(String json, String email) {
         try {
@@ -32,8 +34,8 @@ public class HttpURLConnectionPOST extends AsyncTask<String, Void, Void> {
         try {
             HttpPost httpPost = new HttpPost(uri);
             httpPost.setEntity(new StringEntity(json));
-            httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
+            httpPost.setHeader("Accept", HEADERVALUE);
+            httpPost.setHeader("Content-type", HEADERVALUE);
             return new DefaultHttpClient().execute(httpPost);
         } catch (UnsupportedEncodingException e) {
             Log.e("POST", e.getMessage());
@@ -47,15 +49,15 @@ public class HttpURLConnectionPOST extends AsyncTask<String, Void, Void> {
 
     @Override
     protected final Void doInBackground(final String... params) {
-        String URL = "http://les-timeitup.appspot.com/put_user";
-        String JSON = params[0];
-        String EMAIL = params[1];
+        String url = "http://les-timeitup.appspot.com/put_user";
+        String inJson = params[0];
+        String email = params[1];
 
         Map<String, String> comment = new HashMap<String, String>();
-        comment.put("data", JSON);
-        comment.put("mail", EMAIL);
+        comment.put("data", inJson);
+        comment.put("mail", email);
         String json = new GsonBuilder().create().toJson(comment, Map.class);
-        makeRequest(URL, json);
+        makeRequest(url, json);
 
         return null;
     }

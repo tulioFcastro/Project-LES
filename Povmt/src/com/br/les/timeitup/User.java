@@ -4,20 +4,12 @@ package com.br.les.timeitup;
 import java.util.Calendar;
 
 public class User {
+
     private Week[] weeks;
     private long id;
     private String name;
     private String email;
-    private int lastDayOfTI;
-
     private static User instance = null;
-
-    public static User getInstance() {
-        if (instance == null) {
-            instance = new User();
-        }
-        return instance;
-    }
 
     /**
      * Default Creator of a new User
@@ -38,6 +30,13 @@ public class User {
         this.name = name;
         this.email = email;
         initializeWeeks();
+    }
+
+    public static User getInstance() {
+        if (instance == null) {
+            instance = new User();
+        }
+        return instance;
     }
 
     /**
@@ -126,7 +125,6 @@ public class User {
      * @return The actual week
      */
     public Week getFirstWeek() {
-
         return weeks[2];
     }
 
@@ -136,7 +134,7 @@ public class User {
      */
     public void isActualWeek() {
         if (weeks[2].getWeekOfYear() != Calendar.WEEK_OF_YEAR) {
-            Week temp[] = new Week[3];
+            Week[] temp = new Week[3];
             System.arraycopy(weeks, 0, temp, 0, 3);
 
             weeks[0] = temp[1];

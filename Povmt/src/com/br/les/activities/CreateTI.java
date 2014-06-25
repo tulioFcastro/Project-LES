@@ -21,13 +21,12 @@ public class CreateTI extends Activity {
 
     private ActivityTI myActivityTI;
     private NumberPicker hours;
-
-    private NumberPicker minutes;
-    private User currentUser;
-    private String jsonUser;
     private int priority = 2; // valor inicial, caso n�o seja mudado deve
                               // ficar
                               // como 2.
+    private NumberPicker minutes;
+    private User currentUser;
+    private String jsonUser;
     private static final String JSONUSER = "JsonUser";
 
     @Override
