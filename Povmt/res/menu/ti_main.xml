@@ -6,7 +6,7 @@
         android:showAsAction="ifRoom"
         android:title="Create TI"/>
     
-    <item
+   <!--  <item
         android:id="@+id/action_setAlarm"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
@@ -15,6 +15,6 @@
         android:id="@+id/action_setings"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="Set Alarms"/>
+        android:title="Set Alarms"/> -->
 
 </menu>

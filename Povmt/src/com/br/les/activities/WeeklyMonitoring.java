@@ -274,14 +274,14 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
                 startActivity(i);
                 return true;
 
-            case R.id.action_setAlarm:
-                // setar o novo alarme
-                Toast.makeText(WeeklyMonitoring.this, "setando alarme", Toast.LENGTH_SHORT).show();
                 /*
-                 * // Process to get Current Time final Calendar c =
-                 * Calendar.getInstance(); mHour = c.get(Calendar.HOUR_OF_DAY);
-                 * mMinute = c.get(Calendar.MINUTE); // Launch Time Picker
-                 * Dialog TimePickerDialog tpd = new TimePickerDialog(this, new
+                 * case R.id.action_setAlarm: // setar o novo alarme
+                 * Toast.makeText(WeeklyMonitoring.this, "setando alarme",
+                 * Toast.LENGTH_SHORT).show(); // Process to get Current Time
+                 * final Calendar c = Calendar.getInstance(); mHour =
+                 * c.get(Calendar.HOUR_OF_DAY); mMinute =
+                 * c.get(Calendar.MINUTE); // Launch Time Picker Dialog
+                 * TimePickerDialog tpd = new TimePickerDialog(this, new
                  * TimePickerDialog.OnTimeSetListener() {
                  * @Override public void onTimeSet(TimePicker view, int
                  * hourOfDay, int minute) { Intent intent = new
@@ -297,17 +297,12 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
                  * alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, when,
                  * 20000, pendingIntent); System.out.println("XX Alarm set in "
                  * + hourOfDay + " : " + minute); } }, mHour, mMinute, false);
-                 * tpd.show();
+                 * tpd.show(); openTimePickerDialog(false); return true; case
+                 * R.id.action_setings: Toast.makeText(WeeklyMonitoring.this,
+                 * "Criando alarme", Toast.LENGTH_SHORT).show(); Intent it = new
+                 * Intent(WeeklyMonitoring.this, Alarm.class); finish();
+                 * startActivity(it); return true;
                  */
-                openTimePickerDialog(false);
-
-                return true;
-            case R.id.action_setings:
-                Toast.makeText(WeeklyMonitoring.this, "Criando alarme", Toast.LENGTH_SHORT).show();
-                Intent it = new Intent(WeeklyMonitoring.this, Alarm.class);
-                finish();
-                startActivity(it);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
