@@ -1,3 +1,4 @@
+
 package com.br.les.report;
 
 import android.os.Bundle;
@@ -15,33 +16,33 @@ import com.google.gson.Gson;
 
 public class SecondWeek extends Fragment {
 
-	private ListView listView;
-	private User currentUser;
-	private String json;
+    private ListView listView;
+    private User currentUser;
+    private String json;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
 
-		View rootView = inflater
-				.inflate(R.layout.second_week, container, false);
+        View rootView = inflater
+                .inflate(R.layout.second_week, container, false);
 
-		this.json = ((WeeklyMonitoring) getActivity()).getJson();
-		Gson gson = new Gson();
-		this.currentUser = gson.fromJson(json, User.class);
+        json = ((WeeklyMonitoring) getActivity()).getJson();
+        Gson gson = new Gson();
+        currentUser = gson.fromJson(json, User.class);
 
-		// Get ListView object from xml
-		listView = (ListView) rootView.findViewById(R.id.listViewWeek2);
+        // Get ListView object from xml
+        listView = (ListView) rootView.findViewById(R.id.listViewWeek2);
 
-		String[] values = currentUser.getSecondWeek().tiRank();
+        String[] values = currentUser.getSecondWeek().tiRank();
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-				rootView.getContext(), android.R.layout.simple_list_item_1,
-				android.R.id.text1, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                rootView.getContext(), android.R.layout.simple_list_item_1,
+                android.R.id.text1, values);
 
-		// Assign adapter to ListView
-		listView.setAdapter(adapter);
+        // Assign adapter to ListView
+        listView.setAdapter(adapter);
 
-		return rootView;
-	}
+        return rootView;
+    }
 }
