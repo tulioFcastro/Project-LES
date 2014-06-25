@@ -2,6 +2,7 @@
 package com.br.les.util;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 
@@ -35,11 +36,11 @@ public class HttpURLConnectionPOST extends AsyncTask<String, Void, Void> {
             httpPost.setHeader("Content-type", "application/json");
             return new DefaultHttpClient().execute(httpPost);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            Log.e("POST", e.getMessage());
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            Log.e("POST", e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("POST", e.getMessage());
         }
         return null;
     }
