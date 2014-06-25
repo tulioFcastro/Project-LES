@@ -9,32 +9,32 @@ public class ActivityTI implements Comparable<ActivityTI> {
     private int hour;
     private int minute;
     private int priority;
-    private int mDayOfYear;
-    final Calendar c = Calendar.getInstance();
+    private final int mDayOfYear;
+    private final Calendar c = Calendar.getInstance();
 
     /**
-     * Creator for a new ActivityTI
+     * Creator for a new ActivityTI.
      * 
-     * @param name - The name of this Activity
-     * @param priority
-     * @param priority2
-     * @param time - The time spent on this Activity
+     * @param name - The name of this Activity.
+     * @param minute
+     * @param hour - The time spent on this Activity
      */
-    public ActivityTI(String name, int hour, int minute, int priority) {
+    public ActivityTI(final String name, final int hour, final int minute,
+            final int priority) {
         this.name = name;
         this.hour = hour;
         this.minute = minute;
         this.priority = priority;
-        this.mDayOfYear = c.get(Calendar.DAY_OF_YEAR);
+        mDayOfYear = c.get(Calendar.DAY_OF_YEAR);
     }
 
     /**
-     * Creator for a new ActivityTI
+     * Creator for a new ActivityTI.
      * 
-     * @return the number of hashcode
+     * @return the number of hashcode.
      */
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + (name == null ? 0 : name.hashCode());
@@ -42,13 +42,13 @@ public class ActivityTI implements Comparable<ActivityTI> {
     }
 
     /**
-     * Equals for the ActivityTI
+     * Equals for the ActivityTI.
      * 
-     * @param obj - The object to compare
+     * @param obj - The object to compare.
      * @return - the result of comparison
      */
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         boolean isEqual = true;
         if (this == obj) {
             isEqual = true;
@@ -68,29 +68,29 @@ public class ActivityTI implements Comparable<ActivityTI> {
     }
 
     /**
-     * Method get for the Activity`s name
+     * Method get for the Activity`s name.
      * 
-     * @return - The name of the ActivityTI
+     * @return - The name of the ActivityTI.
      */
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
     /**
-     * Method set for the Activity`s name
+     * Method set for the Activity`s name.
      * 
-     * @param name - The new name for this ActivityTI
+     * @param name - The new name for this ActivityTI.
      */
-    public void setName(String name) {
+    public final void setName(final String name) {
         this.name = name;
     }
 
     /**
-     * Method set for the Activity`s time
+     * Method set for the Activity`s time.
      * 
-     * @param f - The time for add in this ActivityTI
+     * @param hour - The time for add in this ActivityTI.
      */
-    public void addTime(int hour, int minute) {
+    public final void addTime(final int hour, final int minute) {
         this.hour += hour;
         this.minute += minute;
 
@@ -101,11 +101,11 @@ public class ActivityTI implements Comparable<ActivityTI> {
     }
 
     /**
-     * Method get for the Activity's priority
+     * Method get for the Activity's priority.
      * 
-     * @return - int that represents this activity priority
+     * @return - int that represents this activity priority.
      */
-    public String getPriority() {
+    public final String getPriority() {
         switch (priority) {
             case 2:
                 return "High";
@@ -119,67 +119,67 @@ public class ActivityTI implements Comparable<ActivityTI> {
     }
 
     /**
-     * Method set for the Activity's priority
+     * Method set for the Activity's priority.
      * 
-     * @param priority - The new priority of this ActivityTI
+     * @param priority - The new priority of this ActivityTI.
      */
-    public void setPriority(int priority) {
+    public final void setPriority(final int priority) {
         this.priority = priority;
     }
 
     /**
-     * Method compare to, uses the time of one's Activity for comparison
+     * Method compare to, uses the time of one's Activity for comparison.
      * 
-     * @return - 0 if both have the same time, 1 if this activity spent more
+     * @return - 0 if both have the same time, 1 if this activity spent more.
      *         time and -1 if not.
      */
     @Override
-    public int compareTo(ActivityTI actTi) {
-        if (this.getHour() > actTi.hour) {
+    public final int compareTo(final ActivityTI actTi) {
+        if (getHour() > actTi.hour) {
             return -1;
-        } else if (this.getHour() < actTi.getHour()) {
+        } else if (getHour() < actTi.getHour()) {
             return 1;
         }
         return 0;
     }
 
     /**
-     * @return String in the format <Activity_name> : <Activity_time>
+     * @return String in the format <Activity_name> : <Activity_time>.
      */
     @Override
-    public String toString() {
+    public final String toString() {
         return " "
                 + getName()
                 + " - "
-                + (String.valueOf(this.getHour()).length() >= 2 ? this
-                        .getHour() : ("0" + this.getHour()))
+                + (String.valueOf(getHour()).length() >= 2 ? getHour() : "0"
+                        + getHour())
                 + ":"
-                + (String.valueOf(this.getMinute()).length() == 2 ? this
-                        .getMinute() : ("0" + this.getMinute())) + " - "
+                + (String.valueOf(getMinute()).length() == 2 ? getMinute()
+                        : "0" + getMinute()) + " - "
                 + getPriority();
     }
 
-    public int getMinute() {
+    public final int getMinute() {
         return minute;
     }
 
-    public void setMinute(int minute) {
+    public final void setMinute(final int minute) {
         this.minute = minute;
     }
 
-    public int getHour() {
+    public final int getHour() {
         return hour;
     }
 
-    public void setHour(int hour) {
+    public final void setHour(final int hour) {
         this.hour = hour;
     }
 
-    public float getTime() {
-        return (this.getHour() * 60) + this.getMinute();
+    public final float getTime() {
+        return getHour() * 60 + getMinute();
     }
 
-    public int getDayOfTI() {
+    public final int getDayOfTI() {
 
         return mDayOfYear;
     }

@@ -21,8 +21,9 @@ public class FirstWeek extends Fragment {
     private String json;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public final View onCreateView(final LayoutInflater inflater,
+            final ViewGroup container,
+            final Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.first_week, container, false);
 

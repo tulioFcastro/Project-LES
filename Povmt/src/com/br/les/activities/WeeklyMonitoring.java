@@ -10,7 +10,6 @@ import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -36,8 +35,6 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
-    TimePickerDialog timePickerDialog;
-    final static int RQS1 = 1;
 
     // Tab titles
     private static final String[] TABS = {
@@ -48,7 +45,7 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
 
     @SuppressLint("NewApi")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_monitoring);
 
@@ -134,17 +131,18 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
-            public void onPageSelected(int position) {
+            public void onPageSelected(final int position) {
                 actionBar.setSelectedNavigationItem(position);
             }
 
             @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2)
+            public void onPageScrolled(final int arg0, final float arg1,
+                    final int arg2)
                     throws UnsupportedOperationException {
             }
 
             @Override
-            public void onPageScrollStateChanged(int arg0)
+            public void onPageScrollStateChanged(final int arg0)
                     throws UnsupportedOperationException {
             }
 
@@ -152,24 +150,24 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public final boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.ti_main, menu);
         return true;
     }
 
     @Override
-    public void onTabSelected(Tab tab, FragmentTransaction ft)
+    public void onTabSelected(final Tab tab, final FragmentTransaction ft)
             throws UnsupportedOperationException {
     }
 
     @Override
-    public void onTabUnselected(Tab tab, FragmentTransaction ft)
+    public void onTabUnselected(final Tab tab, final FragmentTransaction ft)
             throws UnsupportedOperationException {
     }
 
     @Override
-    public void onTabReselected(Tab tab, FragmentTransaction ft)
+    public void onTabReselected(final Tab tab, final FragmentTransaction ft)
             throws UnsupportedOperationException {
     }
 
@@ -192,9 +190,9 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
     }
 
     /**
-     * If some error, creates dialog for the user
+     * If some error, creates dialog for the user.
      */
-    public final void dialogError(int title, int message) {
+    public final void dialogError(final int title, final int message) {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(title)
@@ -211,34 +209,36 @@ public class WeeklyMonitoring extends FragmentActivity implements TabListener {
     }
 
     /**
-     * Check internet connection
+     * Check internet connection.
      * 
-     * @return the connection
+     * @return the connection.
      */
-    public boolean isConnected() {
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+    public final boolean isConnected() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }
 
-    public String getJson() {
+    public final String getJson() {
         return json;
     }
 
     /**
-     * Event Handling for Individual menu item selected Identify single menu
-     * item by it's id
+     * Event Handling for Individual menu item selected Identify single menu.
+     * item by it's id.
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_createTI){
-                Toast.makeText(WeeklyMonitoring.this, "Create a new TI",
-                        Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(WeeklyMonitoring.this, CreateTI.class);
-                i.putExtra(JSONUSER, json);
-                finish();
-                startActivity(i);
-                return true;
-        } return super.onOptionsItemSelected(item);
+    public final boolean onOptionsItemSelected(final MenuItem item) {
+        if (item.getItemId() == R.id.action_createTI) {
+            Toast.makeText(WeeklyMonitoring.this, "Create a new TI",
+                    Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(WeeklyMonitoring.this, CreateTI.class);
+            i.putExtra(JSONUSER, json);
+            finish();
+            startActivity(i);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
