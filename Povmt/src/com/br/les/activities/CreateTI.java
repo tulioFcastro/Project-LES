@@ -19,15 +19,15 @@ import com.google.gson.Gson;
 
 public class CreateTI extends Activity {
 
-    private ActivityTI my_activity_ti;
+    private ActivityTI myActivityTI;
     private NumberPicker hours;
-
+    private int priority = 2; // valor inicial, caso n�o seja mudado deve
+                              // ficar
+                              // como 2.
     private NumberPicker minutes;
     private User currentUser;
     private String jsonUser;
-    private int priority = 2; // valor inicial, caso n�o seja mudado deve ficar
-                              // como 2.
-    private final String JSON_USER = "JsonUser";
+    private static final String JSONUSER = "JsonUser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +35,10 @@ public class CreateTI extends Activity {
         setContentView(R.layout.activity_create_ti);
 
         Bundle bundle = getIntent().getExtras();
-        jsonUser = bundle.getString(JSON_USER);
+        jsonUser = bundle.getString(JSONUSER);
         final Gson gson = new Gson();
         currentUser = gson.fromJson(jsonUser, User.class);
-        System.out.println("####USUARIO: " + currentUser);
+        // System.out.println("####USUARIO: " + currentUser);
 
         hours = (NumberPicker) findViewById(R.id.hours);
         hours.setMaxValue(167);
@@ -70,23 +70,17 @@ public class CreateTI extends Activity {
                 Toast toast = Toast.makeText(getApplicationContext(),
                         R.string.register_ok, Toast.LENGTH_SHORT);
                 toast.show();
-
-                my_activity_ti = new ActivityTI(name.getText().toString(),
+                myActivityTI = new ActivityTI(name.getText().toString(),
                         hours.getValue(), minutes.getValue(), priority);
-
                 currentUser.isActualWeek();
-                currentUser.getFirstWeek().addTI(my_activity_ti);
-
+                currentUser.getFirstWeek().addTI(myActivityTI);
                 String userJson = gson.toJson(currentUser);
-
                 HttpURLConnectionPOST connPOST = new HttpURLConnectionPOST();
                 connPOST.execute(userJson, currentUser.getEmail());
-
                 Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
-                i.putExtra(JSON_USER, userJson);
+                i.putExtra(JSONUSER, userJson);
                 finish();
                 startActivity(i);
-
             }
         });
 
@@ -96,13 +90,11 @@ public class CreateTI extends Activity {
             public void onClick(View v) {
 
                 Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
-                i.putExtra(JSON_USER, jsonUser);
+                i.putExtra(JSONUSER, jsonUser);
                 finish();
                 startActivity(i);
             }
         });
-
-        startAlert(findViewById(R.id.weekly_monitoring));
     }
 
     /**
@@ -111,34 +103,28 @@ public class CreateTI extends Activity {
     @Override
     public final void onBackPressed() {
         Intent i = new Intent(CreateTI.this, WeeklyMonitoring.class);
-        i.putExtra(JSON_USER, jsonUser);
+        i.putExtra(JSONUSER, jsonUser);
         finish();
         startActivity(i);
     }
 
     public void onRadioButtonClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
-        switch (view.getId()) {
-            case R.id.hiPriority:
-                if (checked) {
+        if (checked) {
+            switch (view.getId()) {
+                case R.id.hiPriority:
                     priority = 2;
-                }
-                break;
-            case R.id.mediumPriority:
-                if (checked) {
+                    break;
+                case R.id.mediumPriority:
                     priority = 1;
-                }
-
-                break;
-            case R.id.lowPriority:
-                if (checked) {
+                    break;
+                case R.id.lowPriority:
                     priority = 0;
-                }
-                break;
+                    break;
+                default:
+                    priority = 0;
+                    break;
+            }
         }
     }
-
-    public void startAlert(View view) {
-    }
-
 }
